@@ -282,7 +282,7 @@
             this.Controls.Add(this.lbl_Version);
             this.Controls.Add(this.lbl_PCSX2);
             this.Name = "fmr_Main";
-            this.Text = "Form1";
+            this.Text = "Socom 2 Stream Data";
             this.Load += new System.EventHandler(this.fmr_Main_Load);
             this.pnl_options.ResumeLayout(false);
             this.pnl_options.PerformLayout();
