@@ -31,7 +31,7 @@ namespace Socom2StreamData
 
             if (pcsx2Running)
             {
-                m.OpenProcess("pcsx2dis.exe");
+                m.OpenProcess("pcsx2.exe");
 
                 //Get the current patch version
                 lbl_Version.Text = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.SOCOM_PATCH_ADDRESS, 20));
@@ -148,7 +148,7 @@ namespace Socom2StreamData
         private void tmr_CheckPCSX2_Tick(object sender, EventArgs e)
         {
 
-            Process[] pcsx2 = Process.GetProcessesByName("pcsx2dis");
+            Process[] pcsx2 = Process.GetProcessesByName("pcsx2");
 
             if (pcsx2.Length > 0)
             {
