@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
+
 namespace Socom2StreamData
 {
     public partial class fmr_Main : Form
@@ -201,6 +203,7 @@ namespace Socom2StreamData
 
         private void fmr_Main_Load(object sender, EventArgs e)
         {
+            lbl_ProgramVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             // load GUI
             statsGUI = new frmSTATS_GUI();
             statsGUI.Show();

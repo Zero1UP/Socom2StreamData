@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Label2 = new System.Windows.Forms.Label();
+            this.lbl_ProgramVersion = new System.Windows.Forms.Label();
             this.lbl_timer_output = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
@@ -52,16 +52,16 @@
             this.pnl_options.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Label2
+            // lbl_ProgramVersion
             // 
-            this.Label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.Label2.Location = new System.Drawing.Point(385, 231);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(61, 19);
-            this.Label2.TabIndex = 9;
-            this.Label2.Text = "v0.02";
-            this.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lbl_ProgramVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ProgramVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.lbl_ProgramVersion.Location = new System.Drawing.Point(385, 231);
+            this.lbl_ProgramVersion.Name = "lbl_ProgramVersion";
+            this.lbl_ProgramVersion.Size = new System.Drawing.Size(61, 19);
+            this.lbl_ProgramVersion.TabIndex = 9;
+            this.lbl_ProgramVersion.Text = "VERSION";
+            this.lbl_ProgramVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lbl_timer_output
             // 
@@ -277,7 +277,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(456, 259);
-            this.Controls.Add(this.Label2);
+            this.Controls.Add(this.lbl_ProgramVersion);
             this.Controls.Add(this.pnl_options);
             this.Controls.Add(this.lbl_Version);
             this.Controls.Add(this.lbl_PCSX2);
@@ -292,7 +292,7 @@
 
         #endregion
 
-        internal System.Windows.Forms.Label Label2;
+        internal System.Windows.Forms.Label lbl_ProgramVersion;
         internal System.Windows.Forms.Label lbl_timer_output;
         internal System.Windows.Forms.Label label44;
         internal System.Windows.Forms.Label Label1;
