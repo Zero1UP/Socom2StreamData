@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>socom2_stats_0YS_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Memory, Version=1.2.18.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Memory.dll.1.2.18.1\lib\net461\Memory.dll</HintPath>
@@ -110,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\s2GUI_50p.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="socom2_stats_0YS_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
