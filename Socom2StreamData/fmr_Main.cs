@@ -19,7 +19,7 @@ namespace Socom2StreamData
 
         bool pcsx2Running;
         Mem m = new Mem();
-        frmSTATS_GUI statsGUI;
+        static frmSTATS_GUI statsGUI;
         public fmr_Main()
         {
             InitializeComponent();
@@ -31,14 +31,14 @@ namespace Socom2StreamData
 
             if (pcsx2Running)
             {
-                m.OpenProcess("pcsx2.exe");
+                m.OpenProcess("pcsx2dis.exe");
 
                 //Get the current patch version
                 lbl_Version.Text = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.SOCOM_PATCH_ADDRESS, 20));
 
                 //Check to make sure that the user is even in a game to begin with
-
-                if (m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4) != new byte[] { 0x00, 0x00, 0x00, 0x00 })
+              
+                if (!m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4).SequenceEqual(new byte[] {0,0,0,0}))
                 {
                     //Check if the player is a spectator. The FPS Checkbox is only available to them
                     if (m.readByte(GameHelper.IS_SPECTATOR_ADDRESS) == 0 && m.readByte(GameHelper.R0005_PATCHED_ROOM_BOOL_ADDRESS) == 0)
@@ -75,7 +75,7 @@ namespace Socom2StreamData
                     lbl_SealsWon.Text = sealsRoundsWon.ToString();
                     lbl_TerrorWon.Text = terroristRoundsWon.ToString();
                     lbl_timer_output.Text = roundTime;
-
+                
                     statsGUI.sealWins = sealsRoundsWon.ToString();
                     statsGUI.terroristWins = terroristRoundsWon.ToString();
                     statsGUI.sealsAlive = sealsAlive.ToString();
@@ -148,7 +148,7 @@ namespace Socom2StreamData
         private void tmr_CheckPCSX2_Tick(object sender, EventArgs e)
         {
 
-            Process[] pcsx2 = Process.GetProcessesByName("pcsx2");
+            Process[] pcsx2 = Process.GetProcessesByName("pcsx2dis");
 
             if (pcsx2.Length > 0)
             {
