@@ -68,7 +68,7 @@ namespace Socom2StreamData
             set
             {
                 resetPlayers();
-                Label currentLabel;
+               
                 foreach (var item in value)
                 {
                    
