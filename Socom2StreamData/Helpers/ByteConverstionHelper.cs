@@ -67,5 +67,13 @@ namespace Socom2StreamData
 
             return result.ToString();
         }
+
+        public static decimal byteHexFloatToDecimal(byte[] data)
+        {
+            string convertedBytesToString = byteArrayHexToHexString(data);
+            Int32 convertedStringToInt = Int32.Parse(convertedBytesToString, System.Globalization.NumberStyles.AllowHexSpecifier);
+            float f = BitConverter.ToSingle(BitConverter.GetBytes(convertedStringToInt), 0);
+            return Convert.ToDecimal(f) * 100;
+        }
     }
 }

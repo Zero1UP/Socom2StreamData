@@ -16,7 +16,7 @@ namespace Socom2StreamData
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fmr_Main());
+            Application.Run(new frm_Main());
         }
     }
 }

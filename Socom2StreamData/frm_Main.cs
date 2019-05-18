@@ -1,26 +1,23 @@
 ﻿using Memory;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 using System.Reflection;
 
 namespace Socom2StreamData
 {
-    public partial class fmr_Main : Form
+    public partial class frm_Main : Form
     {
 
         bool pcsx2Running;
         Mem m = new Mem();
-        static frmSTATS_GUI statsGUI;
-        public fmr_Main()
+        static frm_Stats_GUI statsGUI;
+        static frm_Players playersGUI;
+
+        public frm_Main()
         {
             InitializeComponent();
 
@@ -37,8 +34,7 @@ namespace Socom2StreamData
                 lbl_Version.Text = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.SOCOM_PATCH_ADDRESS, 20));
 
                 //Check to make sure that the user is even in a game to begin with
-              
-                if (!m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4).SequenceEqual(new byte[] {0,0,0,0}))
+                if ((m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4) != null) &&(!m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4).SequenceEqual(new byte[] {0,0,0,0})))
                 {
                     //Check if the player is a spectator. The FPS Checkbox is only available to them
                     if (m.readByte(GameHelper.IS_SPECTATOR_ADDRESS) == 0 && m.readByte(GameHelper.R0005_PATCHED_ROOM_BOOL_ADDRESS) == 0)
@@ -52,6 +48,10 @@ namespace Socom2StreamData
                     {
                         chk_FPS.Enabled = true;
                     }
+
+                    // Get the user's current Team ID 
+                    string usersPlayerLocationAddress =  ByteConverstionHelper.byteArrayHexToAddressString(m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4));
+                    string usersTeam = GameHelper.GetTeamName(ByteConverstionHelper.byteArrayHexToHexString(m.readBytes((int.Parse(usersPlayerLocationAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_TEAM_ID_OFFSET).ToString("X4"), 4)));
 
                     //HUD Bool check
                     if (m.readByte(GameHelper.HUD_BOOL_ADDRESS) == 0)
@@ -70,29 +70,26 @@ namespace Socom2StreamData
                     int terroristsAlive = m.readByte(GameHelper.CURRENT_TERRORISTS_ALIVE_COUNT_ADDRESS);
                     string roundTime = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.CURRENT_ROUND_TIMER_ADDRESS, 5));
 
-                    lbl_SealsAlive.Text = sealsAlive.ToString();
-                    lbl_TerroristsAlive.Text = terroristsAlive.ToString();
-                    lbl_SealsWon.Text = sealsRoundsWon.ToString();
-                    lbl_TerrorWon.Text = terroristRoundsWon.ToString();
-                    lbl_timer_output.Text = roundTime;
-                
+                    List<PlayerDataHelper> playerData = processPlayers();
                     statsGUI.sealWins = sealsRoundsWon.ToString();
                     statsGUI.terroristWins = terroristRoundsWon.ToString();
                     statsGUI.sealsAlive = sealsAlive.ToString();
                     statsGUI.terroristAlive = terroristsAlive.ToString();
                     statsGUI.roundTime = roundTime;
-                    statsGUI.playerData = processPlayers();
+                    statsGUI.playerData = playerData;
 
-
+                    playersGUI.PlayerTeam = usersTeam;
+                    playersGUI.playerData = playerData;
                 }
                 else
                 {
-
-                    lbl_SealsWon.Text = "0";
-                    lbl_TerrorWon.Text = "0";
-                    lbl_SealsAlive.Text = "0";
-                    lbl_TerroristsAlive.Text = "0";
-                    lbl_TotalRounds.Text = "0";
+                    statsGUI.sealWins = 0.ToString();
+                    statsGUI.terroristWins = 0.ToString();
+                    statsGUI.sealsAlive = 0.ToString();
+                    statsGUI.terroristAlive = 0.ToString();
+                    statsGUI.roundTime = "00:00";
+                    statsGUI.playerData = null;
+                    playersGUI.playerData = null;
 
                 }
 
@@ -120,7 +117,7 @@ namespace Socom2StreamData
                     string playerNamePointerAddress = ByteConverstionHelper.byteArrayHexToAddressString(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + 20).ToString("X4"), 4));
                     PD._PlayerName = ByteConverstionHelper.convertBytesToString(m.readBytes(playerNamePointerAddress, 20));
 
-                    int livingStatus = m.readByte((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + 3962).ToString("X4"));
+                    int livingStatus = m.readByte((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_ALIVE_OFFSET).ToString("X4"));
 
                     if (livingStatus == 1)
                     {
@@ -131,8 +128,13 @@ namespace Socom2StreamData
                         PD._LivingStatus = "DEAD";
                     }
 
-                    string teamID = ByteConverstionHelper.byteArrayHexToHexString(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + 200).ToString("X4"), 4));
+                    string teamID = ByteConverstionHelper.byteArrayHexToHexString(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_TEAM_ID_OFFSET).ToString("X4"), 4));
                     PD._Team = GameHelper.GetTeamName(teamID);
+
+                    if (PD._Team == "SEALS" || PD._Team == "TERRORISTS")
+                    {
+                        PD._PlayerHealth = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_HEALTH_OFFSET).ToString("X4"), 4));
+                    }
 
                     playerData.Add(PD);
                     objectPtr = ByteConverstionHelper.byteArrayHexToAddressString(m.readBytes(objectPtr, 4)); // Get the next pointer in the list
@@ -153,14 +155,14 @@ namespace Socom2StreamData
             if (pcsx2.Length > 0)
             {
                 lbl_PCSX2.Text = "PCSX2 Detected";
-                pnl_options.Enabled = true;
+                pnl_Options.Enabled = true;
                 lbl_PCSX2.ForeColor = Color.FromArgb(20, 192, 90);
                 pcsx2Running = true;
             }
             else
             {
                 lbl_PCSX2.Text = "Waiting for PCSX2...";
-                pnl_options.Enabled = false;
+                pnl_Options.Enabled = false;
                 lbl_PCSX2.ForeColor = Color.FromArgb(120, 120, 120);
                 lbl_Version.Text = "...";
                 pcsx2Running = false;
@@ -205,8 +207,28 @@ namespace Socom2StreamData
         {
             lbl_ProgramVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             // load GUI
-            statsGUI = new frmSTATS_GUI();
+            statsGUI = new frm_Stats_GUI();
+
+            statsGUI.StartPosition = FormStartPosition.Manual;
+            //Set the starting location of the Stats form
+            statsGUI.Location = new Point(this.Location.X, this.Location.Y - 100);
             statsGUI.Show();
+
+            // load players GUI
+            playersGUI = new frm_Players();
+            playersGUI.Show();
+        }
+
+        private void chk_ShowHealthBars_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chk_ShowHealthBars.Checked)
+            {
+                playersGUI.Visible = true;
+            }
+            else
+            {
+                playersGUI.Visible = false;
+            }
         }
     }
 }

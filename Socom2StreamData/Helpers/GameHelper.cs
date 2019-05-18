@@ -26,8 +26,10 @@ namespace Socom2StreamData
 
         //For dealing with our who is alive lists
         public const string ENTITY_OBJECT_LIST_POINTER = "204362E4";
-        public const string ENTITY_ALIVE_OFFSET = "F7A"; // A value of 3 = dead
-        public const string ENTITY_TEAM_ID_OFFSET = "CC";
+        public const int  ENTITY_ALIVE_OFFSET = 3962; // A value of 3 = dead
+        public const int  ENTITY_TEAM_ID_OFFSET = 200;
+        public const int ENTITY_HEALTH_OFFSET = 4164;
+
 
         /*Team IDs
         Seals: 40000001 
@@ -58,6 +60,10 @@ namespace Socom2StreamData
             else if (value == "00010000")
             {
                 return "SPECTATOR";
+
+            }else if(value == "48000000") //Not 100% if this coveres all breach points, but this was found on fishhook
+            {
+                return "BREACH POINT";
             }
             else
             {

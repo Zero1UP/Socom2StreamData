@@ -55,11 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="fmr_Main.cs">
+    <Compile Include="Controls\HealthBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HealthBar.Designer.cs">
+      <DependentUpon>HealthBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fmr_Main.Designer.cs">
-      <DependentUpon>fmr_Main.cs</DependentUpon>
+    <Compile Include="frm_Main.Designer.cs">
+      <DependentUpon>frm_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Players.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Players.Designer.cs">
+      <DependentUpon>frm_Players.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PlayerDataHelper.cs" />
     <Compile Include="frm_StatsGUI.cs">
@@ -72,8 +84,14 @@
     <Compile Include="Helpers\GameHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="fmr_Main.resx">
-      <DependentUpon>fmr_Main.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\HealthBar.resx">
+      <DependentUpon>HealthBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Main.resx">
+      <DependentUpon>frm_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Players.resx">
+      <DependentUpon>frm_Players.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_StatsGUI.resx">
       <DependentUpon>frm_StatsGUI.cs</DependentUpon>
@@ -117,5 +135,6 @@
   <ItemGroup>
     <Content Include="socom2_stats_0YS_icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
