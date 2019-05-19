@@ -31,7 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.lbl_ProgramVersion = new System.Windows.Forms.Label();
             this.pnl_Options = new System.Windows.Forms.Panel();
-            this.chk_ShowHealthBars = new System.Windows.Forms.CheckBox();
+            this.chk_ShowTerroristHealthBars = new System.Windows.Forms.CheckBox();
+            this.chk_ShowSealHealthBars = new System.Windows.Forms.CheckBox();
             this.chk_FPS = new System.Windows.Forms.CheckBox();
             this.chk_HUD = new System.Windows.Forms.CheckBox();
             this.tmr_Update = new System.Windows.Forms.Timer(this.components);
@@ -55,7 +56,8 @@
             // pnl_Options
             // 
             this.pnl_Options.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.pnl_Options.Controls.Add(this.chk_ShowHealthBars);
+            this.pnl_Options.Controls.Add(this.chk_ShowTerroristHealthBars);
+            this.pnl_Options.Controls.Add(this.chk_ShowSealHealthBars);
             this.pnl_Options.Controls.Add(this.chk_FPS);
             this.pnl_Options.Controls.Add(this.chk_HUD);
             this.pnl_Options.Enabled = false;
@@ -65,20 +67,35 @@
             this.pnl_Options.Size = new System.Drawing.Size(424, 186);
             this.pnl_Options.TabIndex = 10;
             // 
-            // chk_ShowHealthBars
+            // chk_ShowTerroristHealthBars
             // 
-            this.chk_ShowHealthBars.AutoSize = true;
-            this.chk_ShowHealthBars.Checked = true;
-            this.chk_ShowHealthBars.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_ShowHealthBars.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_ShowHealthBars.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.chk_ShowHealthBars.Location = new System.Drawing.Point(7, 64);
-            this.chk_ShowHealthBars.Name = "chk_ShowHealthBars";
-            this.chk_ShowHealthBars.Size = new System.Drawing.Size(195, 20);
-            this.chk_ShowHealthBars.TabIndex = 5;
-            this.chk_ShowHealthBars.Text = "Show Player Health Window";
-            this.chk_ShowHealthBars.UseVisualStyleBackColor = true;
-            this.chk_ShowHealthBars.CheckedChanged += new System.EventHandler(this.chk_ShowHealthBars_CheckedChanged);
+            this.chk_ShowTerroristHealthBars.AutoSize = true;
+            this.chk_ShowTerroristHealthBars.Checked = true;
+            this.chk_ShowTerroristHealthBars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_ShowTerroristHealthBars.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_ShowTerroristHealthBars.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.chk_ShowTerroristHealthBars.Location = new System.Drawing.Point(7, 90);
+            this.chk_ShowTerroristHealthBars.Name = "chk_ShowTerroristHealthBars";
+            this.chk_ShowTerroristHealthBars.Size = new System.Drawing.Size(279, 20);
+            this.chk_ShowTerroristHealthBars.TabIndex = 5;
+            this.chk_ShowTerroristHealthBars.Text = "Show TERRORIST player\'s health window";
+            this.chk_ShowTerroristHealthBars.UseVisualStyleBackColor = true;
+            this.chk_ShowTerroristHealthBars.CheckedChanged += new System.EventHandler(this.chk_ShowTerroristHealthBars_CheckedChanged);
+            // 
+            // chk_ShowSealHealthBars
+            // 
+            this.chk_ShowSealHealthBars.AutoSize = true;
+            this.chk_ShowSealHealthBars.Checked = true;
+            this.chk_ShowSealHealthBars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_ShowSealHealthBars.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_ShowSealHealthBars.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.chk_ShowSealHealthBars.Location = new System.Drawing.Point(7, 64);
+            this.chk_ShowSealHealthBars.Name = "chk_ShowSealHealthBars";
+            this.chk_ShowSealHealthBars.Size = new System.Drawing.Size(234, 20);
+            this.chk_ShowSealHealthBars.TabIndex = 5;
+            this.chk_ShowSealHealthBars.Text = "Show SEAL player\'s health window";
+            this.chk_ShowSealHealthBars.UseVisualStyleBackColor = true;
+            this.chk_ShowSealHealthBars.CheckedChanged += new System.EventHandler(this.chk_ShowSealHealthBars_CheckedChanged);
             // 
             // chk_FPS
             // 
@@ -169,7 +186,8 @@
         internal System.Windows.Forms.Label lbl_Version;
         internal System.Windows.Forms.Label lbl_PCSX2;
         private System.Windows.Forms.Timer tmr_CheckPCSX2;
-        internal System.Windows.Forms.CheckBox chk_ShowHealthBars;
+        internal System.Windows.Forms.CheckBox chk_ShowSealHealthBars;
+        internal System.Windows.Forms.CheckBox chk_ShowTerroristHealthBars;
     }
 }
 

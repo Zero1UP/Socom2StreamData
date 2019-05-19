@@ -15,6 +15,7 @@ namespace Socom2StreamData.Controls
 
         private int _playerHealth = 100;
         private bool _healthSet = false;
+        private Color _healthBarColor;
 
         public int playerHealth
         {
@@ -31,6 +32,16 @@ namespace Socom2StreamData.Controls
         {
             get { return _healthSet; }
             set { _healthSet = value; }
+        }
+
+        public Color healthBarColor
+        {
+         
+            set
+            {
+                _healthBarColor = value;
+                pnl_HealthBar.BackColor = value;
+            }
         }
 
         public HealthBar()

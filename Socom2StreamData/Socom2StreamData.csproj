@@ -67,12 +67,19 @@
     <Compile Include="frm_Main.Designer.cs">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Players.cs">
+    <Compile Include="frm_Players_Seals.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Players.Designer.cs">
-      <DependentUpon>frm_Players.cs</DependentUpon>
+    <Compile Include="frm_Players_Seals.Designer.cs">
+      <DependentUpon>frm_Players_Seals.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_Players_Terrorists.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Players_Terrorists.Designer.cs">
+      <DependentUpon>frm_Players_Terrorists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\GeneralFunctionsHelper.cs" />
     <Compile Include="Helpers\PlayerDataHelper.cs" />
     <Compile Include="frm_StatsGUI.cs">
       <SubType>Form</SubType>
@@ -90,8 +97,11 @@
     <EmbeddedResource Include="frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Players.resx">
-      <DependentUpon>frm_Players.cs</DependentUpon>
+    <EmbeddedResource Include="frm_Players_Seals.resx">
+      <DependentUpon>frm_Players_Seals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Players_Terrorists.resx">
+      <DependentUpon>frm_Players_Terrorists.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_StatsGUI.resx">
       <DependentUpon>frm_StatsGUI.cs</DependentUpon>

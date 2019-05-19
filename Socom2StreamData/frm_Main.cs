@@ -15,7 +15,8 @@ namespace Socom2StreamData
         bool pcsx2Running;
         Mem m = new Mem();
         static frm_Stats_GUI statsGUI;
-        static frm_Players playersGUI;
+        static frm_Players_Seals sealPlayersGUI;
+        static frm_Players_Terrorists terroristPlayersGUI;
 
         public frm_Main()
         {
@@ -71,6 +72,10 @@ namespace Socom2StreamData
                     string roundTime = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.CURRENT_ROUND_TIMER_ADDRESS, 5));
 
                     List<PlayerDataHelper> playerData = processPlayers();
+                    List<PlayerDataHelper> sealPlayersData = playerData.Where(item => item._Team == "SEALS").ToList();
+                    List<PlayerDataHelper> terroristPlayersData = playerData.Where(item => item._Team == "TERRORISTS").ToList();
+
+
                     statsGUI.sealWins = sealsRoundsWon.ToString();
                     statsGUI.terroristWins = terroristRoundsWon.ToString();
                     statsGUI.sealsAlive = sealsAlive.ToString();
@@ -78,8 +83,10 @@ namespace Socom2StreamData
                     statsGUI.roundTime = roundTime;
                     statsGUI.playerData = playerData;
 
-                    playersGUI.PlayerTeam = usersTeam;
-                    playersGUI.playerData = playerData;
+                    sealPlayersGUI.PlayerTeam = usersTeam;
+                    sealPlayersGUI.playerData = sealPlayersData;
+                    terroristPlayersGUI.PlayerTeam = usersTeam;
+                    terroristPlayersGUI.playerData = terroristPlayersData;
                 }
                 else
                 {
@@ -89,7 +96,8 @@ namespace Socom2StreamData
                     statsGUI.terroristAlive = 0.ToString();
                     statsGUI.roundTime = "00:00";
                     statsGUI.playerData = null;
-                    playersGUI.playerData = null;
+                    terroristPlayersGUI.playerData = null;
+                    sealPlayersGUI.playerData = null;
 
                 }
 
@@ -215,19 +223,37 @@ namespace Socom2StreamData
             statsGUI.Show();
 
             // load players GUI
-            playersGUI = new frm_Players();
-            playersGUI.Show();
+            sealPlayersGUI = new frm_Players_Seals();
+            sealPlayersGUI.Show();
+
+            terroristPlayersGUI = new frm_Players_Terrorists();
+            terroristPlayersGUI.Show();
+
+
         }
 
-        private void chk_ShowHealthBars_CheckedChanged(object sender, EventArgs e)
+        private void chk_ShowSealHealthBars_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_ShowHealthBars.Checked)
+            if(chk_ShowSealHealthBars.Checked)
             {
-                playersGUI.Visible = true;
+                sealPlayersGUI.Visible = true;
             }
             else
             {
-                playersGUI.Visible = false;
+                sealPlayersGUI.Visible = false;
+            }
+        }
+
+
+        private void chk_ShowTerroristHealthBars_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_ShowTerroristHealthBars.Checked)
+            {
+                terroristPlayersGUI.Visible = true;
+            }
+            else
+            {
+                terroristPlayersGUI.Visible = false;
             }
         }
     }
