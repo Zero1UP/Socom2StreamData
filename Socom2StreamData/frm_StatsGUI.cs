@@ -24,7 +24,7 @@ namespace Socom2StreamData
         public static extern bool ReleaseCapture();
 
 
-        public List<PlayerDataHelper> _pd = new List<PlayerDataHelper>();
+        public List<PlayerDataModel> _pd = new List<PlayerDataModel>();
 
         public string sealWins
         {
@@ -67,7 +67,7 @@ namespace Socom2StreamData
             }
         }
 
-        public List<PlayerDataHelper> playerData
+        public List<PlayerDataModel> playerData
         {
             set
             {

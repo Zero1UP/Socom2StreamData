@@ -10,9 +10,10 @@ namespace Socom2StreamData
 {
     public static class GeneralFunctionsHelper
     {
-        public static void setLabel(Label label, string playerName, string livingStatus)
+        public static void setLabel(Label label, string playerName, string livingStatus,string labelName)
         {
             label.Text = playerName;
+            label.Tag = labelName;
             if (livingStatus == "DEAD")
             {
                 label.ForeColor = Color.FromArgb(175, 175, 175);

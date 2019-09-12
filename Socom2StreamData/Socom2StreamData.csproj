@@ -61,26 +61,32 @@
     <Compile Include="Controls\HealthBar.Designer.cs">
       <DependentUpon>HealthBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlayerLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PlayerLabel.Designer.cs">
+      <DependentUpon>PlayerLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_Main.Designer.cs">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Players_Seals.cs">
+    <Compile Include="frm_PlayerMap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Players_Seals.Designer.cs">
-      <DependentUpon>frm_Players_Seals.cs</DependentUpon>
+    <Compile Include="frm_PlayerMap.Designer.cs">
+      <DependentUpon>frm_PlayerMap.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Players_Terrorists.cs">
+    <Compile Include="frm_Players_Team.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Players_Terrorists.Designer.cs">
-      <DependentUpon>frm_Players_Terrorists.cs</DependentUpon>
+    <Compile Include="frm_Players_Team.Designer.cs">
+      <DependentUpon>frm_Players_Team.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GeneralFunctionsHelper.cs" />
-    <Compile Include="Helpers\PlayerDataHelper.cs" />
+    <Compile Include="Models\PlayerDataModel.cs" />
     <Compile Include="frm_StatsGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,14 +100,17 @@
     <EmbeddedResource Include="Controls\HealthBar.resx">
       <DependentUpon>HealthBar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PlayerLabel.resx">
+      <DependentUpon>PlayerLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Players_Seals.resx">
-      <DependentUpon>frm_Players_Seals.cs</DependentUpon>
+    <EmbeddedResource Include="frm_PlayerMap.resx">
+      <DependentUpon>frm_PlayerMap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Players_Terrorists.resx">
-      <DependentUpon>frm_Players_Terrorists.cs</DependentUpon>
+    <EmbeddedResource Include="frm_Players_Team.resx">
+      <DependentUpon>frm_Players_Team.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_StatsGUI.resx">
       <DependentUpon>frm_StatsGUI.cs</DependentUpon>

@@ -8,8 +8,10 @@ namespace Socom2StreamData
 {
     public static class GameHelper
     {
-        
+        public const string GAME_ENDED_ADDRESS = "20694C44";  //May need to reset this to 0 after it ends, it seems to persist till the next game and doesn't reset when the player loads i
+        public const string CURRENT_MAP_ADDRESS = "20436540"; // Text String of MapID, if not in a game then it is set to NONE
         public const string PLAYER_POINTER_ADDRESS = "20440C38";
+        public const string CAMERA_POINTER_ADDRESS = "20415FF0";
         public const string SEAL_WIN_COUNTER_ADDRESS = "20695388";
         public const string TERRORIST_WIN_COUNTER_ADDRESS = "2069539C";
         public const string TOTAL_ROUNDS_ADDRESS = "20694C6C";
@@ -30,7 +32,9 @@ namespace Socom2StreamData
         public const int  ENTITY_TEAM_ID_OFFSET = 200;
         public const int ENTITY_HEALTH_OFFSET = 4164;
 
-
+        public const int ENTITY_X_COORD = 28;
+        public const int ENTITY_Y_COORD = 36;
+        public const int ENTITY_Z_COORD = 740;
         /*Team IDs
         Seals: 40000001 
         Terrorists: 80000100 
