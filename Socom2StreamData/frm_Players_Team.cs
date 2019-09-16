@@ -77,9 +77,24 @@ namespace Socom2StreamData
                         var healthBar = healthBars.First();
                         healthBar.Visible = true;
 
-                        //If the the teams match then we want to show only thier health bars
 
-                        if(_playerTeam == _Team || _playerTeam == "SPECTATOR")
+                        var pictureBoxes = pnl_Team_Players.Controls.OfType<PictureBox>()
+                        .Where(pc => pc.Tag == "")
+                        .OrderBy(hb => hb.Name);
+
+                        var pictureBox = pictureBoxes.First();
+                        pictureBox.Tag = item._PlayerName;
+                        if (item._hasMPBomb == 1)
+                        {
+                            pictureBox.Visible = true;
+                        }
+                        else
+                        {
+                            pictureBox.Visible = false;
+                        }
+
+                        //If the the teams match then we want to show only thier health bars
+                        if (_playerTeam == _Team || _playerTeam == "SPECTATOR")
                         {
                             healthBar.healthBarColor = Color.FromArgb(25, 140, 25);
                             healthBar.playerHealth = decimal.ToInt32(item._PlayerHealth);
@@ -119,6 +134,12 @@ namespace Socom2StreamData
                 healthBar.healthSet = false;
                 healthBar.playerHealth = 0;
                 healthBar.Visible = false;
+            }
+
+            foreach (var pictureBox in pnl_Team_Players.Controls.OfType<PictureBox>())
+            {
+                pictureBox.Visible = false;
+                pictureBox.Tag = "";
             }
         }
 

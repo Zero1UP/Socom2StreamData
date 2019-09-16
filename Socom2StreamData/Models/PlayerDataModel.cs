@@ -23,6 +23,6 @@ namespace Socom2StreamData
         public decimal _yCoord { get; set; }
         public decimal _zCoord { get; set; }
         public string _pointerAddress { get; set; }
-
+        public int _hasMPBomb { get; set; }
     }
 }

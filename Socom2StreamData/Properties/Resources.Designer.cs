@@ -63,6 +63,16 @@ namespace Socom2StreamData.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mpBomb {
+            get {
+                object obj = ResourceManager.GetObject("mpBomb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap s2GUI_50p {
             get {
                 object obj = ResourceManager.GetObject("s2GUI_50p", resourceCulture);

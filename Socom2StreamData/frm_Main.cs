@@ -14,7 +14,7 @@ namespace Socom2StreamData
 {
     public partial class frm_Main : Form
     {
-        private const string PCSX2PROCESSNAME = "pcsx2dis";
+        private const string PCSX2PROCESSNAME = "pcsx2";
         bool pcsx2Running;
         Mem m = new Mem();
         static frm_Stats_GUI statsGUI;
@@ -106,9 +106,11 @@ namespace Socom2StreamData
                         sealPlayersGUI.playerData = sealPlayersData;
                         sealPlayersGUI.PlayerTeam = usersTeam;
                         sealPlayersGUI.MemObject = m;
+                        sealPlayersGUI.Text = "frm_Seals";
                         terroristPlayersGUI.PlayerTeam = usersTeam;
                         terroristPlayersGUI.playerData = terroristPlayersData;
                         terroristPlayersGUI.MemObject = m;
+                        terroristPlayersGUI.Text = "frm_terrorists";
                         //playerMap.playerData = sealPlayersData;
                         //playerDataList = playerData;
                     }
@@ -172,7 +174,7 @@ namespace Socom2StreamData
                         PD._yCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_Y_COORD).ToString("X4"), 4),false);
                         PD._zCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_Z_COORD).ToString("X4"), 4),false);
                         PD._PlayerName = ByteConverstionHelper.convertBytesToString(m.readBytes(playerNamePointerAddress, 20));
-                        
+                        PD._hasMPBomb = m.readByte((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_HAS_MPBOMB).ToString("X4"));
                         int livingStatus = m.readByte((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_ALIVE_OFFSET).ToString("X4"));
 
                         if (livingStatus == 1)

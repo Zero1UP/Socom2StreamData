@@ -35,6 +35,8 @@ namespace Socom2StreamData
         public const int ENTITY_X_COORD = 28;
         public const int ENTITY_Y_COORD = 36;
         public const int ENTITY_Z_COORD = 740;
+        public const int ENTITY_HAS_MPBOMB = 2172;
+        public const int ENTITY_IS_FIRING = 121376;
         /*Team IDs
         Seals: 40000001 
         Terrorists: 80000100 
