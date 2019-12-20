@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Data;
 using System.IO;
-
+using DiscordRPC;
 namespace Socom2StreamData
 {
     public partial class frm_Main : Form
@@ -17,23 +17,80 @@ namespace Socom2StreamData
         private const string PCSX2PROCESSNAME = "pcsx2";
         bool pcsx2Running;
         Mem m = new Mem();
+
         static frm_Stats_GUI statsGUI;
         static frm_Players_Team sealPlayersGUI;
         static frm_Players_Team terroristPlayersGUI;
+
+        bool gameStarted = false;
+        private static RichPresence presence = new RichPresence()
+        {
+            Details = "Not currently in a game.",
+            State = "Room: Not in a room.",
+            Assets = new Assets()
+            {
+                LargeImageKey = "default",
+                LargeImageText = "Not in a room.",
+                SmallImageKey = "default"
+            }
+        };
+
+
         //static frm_PlayerMap playerMap;
         //string mapID = "";
         // List<PlayerDataModel> playerDataList= new List<PlayerDataModel>();
-
+        public DiscordRpcClient client;
         public frm_Main()
         {
             InitializeComponent();
 
+            client = new DiscordRpcClient("657060473849643018");
+
+            client.Initialize();
+            client.SetPresence(presence);
         }
 
+        private void setPresence(string roomName, int sealWins, int terrorWins, string mapID,int customMap)
+        {
+
+            MapDataModel mapInfo = GameHelper.mapInfo.Find(x => x._mapID == mapID.ToUpper());
+
+            if (sealWins == -1 && terrorWins == -1)
+            {
+                presence.Details = "Not currently in a game.";
+            }
+            else
+            {
+                presence.Details = "Seals: " + sealWins.ToString() + " || Terrorist: " + terrorWins.ToString();
+            }
+
+            presence.State = "Room: " + roomName;
+
+            presence.Assets = new Assets();
+
+            if(customMap == 1)
+            {
+                presence.Assets.LargeImageKey = mapInfo._altDiscordKey;
+                presence.Assets.SmallImageKey = mapInfo._altDiscordKey;
+                presence.Assets.LargeImageText = mapInfo._altMapName;
+                presence.Assets.SmallImageText = mapInfo._altMapName;
+
+            }
+            else
+            {
+                presence.Assets.LargeImageKey = mapInfo._discordKey;
+                presence.Assets.SmallImageKey = mapInfo._discordKey;
+                presence.Assets.LargeImageText = mapInfo._mapName;
+                presence.Assets.SmallImageText = mapInfo._mapName;
+            }
+         
+            client.SetPresence(presence);
+        }
         private void tmr_Update_Tick(object sender, EventArgs e)
         {
             
             List<PlayerDataModel> playerData = new List<PlayerDataModel>();
+
             if (pcsx2Running)
             {
                 m.OpenProcess(PCSX2PROCESSNAME +".exe");
@@ -74,8 +131,9 @@ namespace Socom2StreamData
                         // Get the user's current Team ID 
                         string usersPlayerLocationAddress = ByteConverstionHelper.byteArrayHexToAddressString(m.readBytes(GameHelper.PLAYER_POINTER_ADDRESS, 4));
                         string usersTeam = GameHelper.GetTeamName(ByteConverstionHelper.byteArrayHexToHexString(m.readBytes((int.Parse(usersPlayerLocationAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_TEAM_ID_OFFSET).ToString("X4"), 4)));
-
-
+                        string roomName = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.ROOM_NAME_ADDRESS, 22));
+                        string mapID = ByteConverstionHelper.convertBytesToString(m.readBytes(GameHelper.CURRENT_MAP_ADDRESS, 4));
+                        int customMap = m.readByte(GameHelper.CUSTOM_MAP_ADDRESS);
                         //Deal with the game stats
                         int sealsRoundsWon = m.readByte(GameHelper.SEAL_WIN_COUNTER_ADDRESS);
                         int terroristRoundsWon = m.readByte(GameHelper.TERRORIST_WIN_COUNTER_ADDRESS);
@@ -113,6 +171,18 @@ namespace Socom2StreamData
                         terroristPlayersGUI.Text = "frm_terrorists";
                         //playerMap.playerData = sealPlayersData;
                         //playerDataList = playerData;
+                       
+                        if(!gameStarted)
+                        {
+                            presence.Timestamps = new Timestamps()
+                            {
+                                Start = DateTime.UtcNow
+                               
+                            };
+                          
+                            gameStarted = true;
+                        }
+                        setPresence(roomName, sealsRoundsWon, terroristRoundsWon, mapID, customMap);
                     }
                 
                 }
@@ -133,9 +203,13 @@ namespace Socom2StreamData
                         statsGUI.playerData = null;
                         terroristPlayersGUI.playerData = null;
                         sealPlayersGUI.playerData = null;
-                        //playerMap.playerData = null;
-                        //mapID = "";
-                   // }
+                        presence.Timestamps = null;
+                        setPresence("Not in a room or in lobby", -1, -1, "NONE",0);
+                        
+                        gameStarted = false;
+                    //playerMap.playerData = null;
+                    //mapID = "";
+                    // }
 
 
                 }
@@ -143,7 +217,16 @@ namespace Socom2StreamData
             }
             else
             {
-                m.closeProcess();
+                try
+                {
+                    m.closeProcess();
+                }
+                catch (Exception)
+                {
+
+                   //It's possible that it was closed outside of this
+                }
+             
             }
 
         }
@@ -170,9 +253,9 @@ namespace Socom2StreamData
                         PD._pointerAddress = ByteConverstionHelper.byteArrayHexToAddressString(m.readBytes((int.Parse(objectPtr, System.Globalization.NumberStyles.HexNumber) + 8).ToString("X4"), 4),false); ;
                         PD._Team = teamName;
                         PD._PlayerHealth = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_HEALTH_OFFSET).ToString("X4"), 4));
-                        PD._xCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_X_COORD).ToString("X4"), 4),false);
-                        PD._yCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_Y_COORD).ToString("X4"), 4),false);
-                        PD._zCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_Z_COORD).ToString("X4"), 4),false);
+                        //PD._xCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_X_COORD).ToString("X4"), 4),false);
+                        //PD._yCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_Y_COORD).ToString("X4"), 4),false);
+                        //PD._zCoord = ByteConverstionHelper.byteHexFloatToDecimal(m.readBytes((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_Z_COORD).ToString("X4"), 4),false);
                         PD._PlayerName = ByteConverstionHelper.convertBytesToString(m.readBytes(playerNamePointerAddress, 20));
                         PD._hasMPBomb = m.readByte((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_HAS_MPBOMB).ToString("X4"));
                         int livingStatus = m.readByte((int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber) + GameHelper.ENTITY_ALIVE_OFFSET).ToString("X4"));
@@ -297,7 +380,6 @@ namespace Socom2StreamData
             }
         }
 
-
         private void chk_ShowTerroristHealthBars_CheckedChanged(object sender, EventArgs e)
         {
             if (chk_ShowTerroristHealthBars.Checked)
@@ -307,6 +389,37 @@ namespace Socom2StreamData
             else
             {
                 terroristPlayersGUI.Visible = false;
+            }
+        }
+
+        private void chk_ScoreBoardAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
+        {    
+            toggleTopWindow(statsGUI, chk_ScoreBoardAlwaysOnTop.Checked);
+
+        }
+        private void chk_SealPlayersAlwaysTopWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            toggleTopWindow(sealPlayersGUI, chk_SealPlayersAlwaysTopWindow.Checked);
+        }
+        private void chk_TerroristPlayersAlwaysTopWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            toggleTopWindow(terroristPlayersGUI, chk_TerroristPlayersAlwaysTopWindow.Checked);
+        }
+        private void frm_Main_FormClosed(object sender, FormClosedEventArgs e)
+        {    
+            client.Dispose();
+        }
+
+        private void toggleTopWindow(Form formToToggle,bool isTopWindow)
+        {
+            
+            if (isTopWindow)
+            {
+                formToToggle.TopMost = true;
+            }
+            else
+            {
+                formToToggle.TopMost = false;
             }
         }
 

@@ -35,10 +35,13 @@
             this.chk_ShowSealHealthBars = new System.Windows.Forms.CheckBox();
             this.chk_FPS = new System.Windows.Forms.CheckBox();
             this.chk_HUD = new System.Windows.Forms.CheckBox();
+            this.chk_ScoreBoardAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.tmr_Update = new System.Windows.Forms.Timer(this.components);
             this.lbl_Version = new System.Windows.Forms.Label();
             this.lbl_PCSX2 = new System.Windows.Forms.Label();
             this.tmr_CheckPCSX2 = new System.Windows.Forms.Timer(this.components);
+            this.chk_SealPlayersAlwaysTopWindow = new System.Windows.Forms.CheckBox();
+            this.chk_TerroristPlayersAlwaysTopWindow = new System.Windows.Forms.CheckBox();
             this.pnl_Options.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +67,7 @@
             this.pnl_Options.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.pnl_Options.Location = new System.Drawing.Point(12, 36);
             this.pnl_Options.Name = "pnl_Options";
-            this.pnl_Options.Size = new System.Drawing.Size(424, 186);
+            this.pnl_Options.Size = new System.Drawing.Size(424, 119);
             this.pnl_Options.TabIndex = 10;
             // 
             // chk_ShowTerroristHealthBars
@@ -123,6 +126,19 @@
             this.chk_HUD.UseVisualStyleBackColor = true;
             this.chk_HUD.CheckedChanged += new System.EventHandler(this.chk_HUD_CheckedChanged);
             // 
+            // chk_ScoreBoardAlwaysOnTop
+            // 
+            this.chk_ScoreBoardAlwaysOnTop.AutoSize = true;
+            this.chk_ScoreBoardAlwaysOnTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_ScoreBoardAlwaysOnTop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.chk_ScoreBoardAlwaysOnTop.Location = new System.Drawing.Point(19, 161);
+            this.chk_ScoreBoardAlwaysOnTop.Name = "chk_ScoreBoardAlwaysOnTop";
+            this.chk_ScoreBoardAlwaysOnTop.Size = new System.Drawing.Size(213, 20);
+            this.chk_ScoreBoardAlwaysOnTop.TabIndex = 5;
+            this.chk_ScoreBoardAlwaysOnTop.Text = "Scoreboard always top window";
+            this.chk_ScoreBoardAlwaysOnTop.UseVisualStyleBackColor = true;
+            this.chk_ScoreBoardAlwaysOnTop.CheckedChanged += new System.EventHandler(this.chk_ScoreBoardAlwaysOnTop_CheckedChanged);
+            // 
             // tmr_Update
             // 
             this.tmr_Update.Enabled = true;
@@ -156,12 +172,41 @@
             this.tmr_CheckPCSX2.Enabled = true;
             this.tmr_CheckPCSX2.Tick += new System.EventHandler(this.tmr_CheckPCSX2_Tick);
             // 
+            // chk_SealPlayersAlwaysTopWindow
+            // 
+            this.chk_SealPlayersAlwaysTopWindow.AutoSize = true;
+            this.chk_SealPlayersAlwaysTopWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_SealPlayersAlwaysTopWindow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.chk_SealPlayersAlwaysTopWindow.Location = new System.Drawing.Point(19, 180);
+            this.chk_SealPlayersAlwaysTopWindow.Name = "chk_SealPlayersAlwaysTopWindow";
+            this.chk_SealPlayersAlwaysTopWindow.Size = new System.Drawing.Size(223, 20);
+            this.chk_SealPlayersAlwaysTopWindow.TabIndex = 5;
+            this.chk_SealPlayersAlwaysTopWindow.Text = "SEAL players always top window";
+            this.chk_SealPlayersAlwaysTopWindow.UseVisualStyleBackColor = true;
+            this.chk_SealPlayersAlwaysTopWindow.CheckedChanged += new System.EventHandler(this.chk_SealPlayersAlwaysTopWindow_CheckedChanged);
+            // 
+            // chk_TerroristPlayersAlwaysTopWindow
+            // 
+            this.chk_TerroristPlayersAlwaysTopWindow.AutoSize = true;
+            this.chk_TerroristPlayersAlwaysTopWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_TerroristPlayersAlwaysTopWindow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.chk_TerroristPlayersAlwaysTopWindow.Location = new System.Drawing.Point(19, 201);
+            this.chk_TerroristPlayersAlwaysTopWindow.Name = "chk_TerroristPlayersAlwaysTopWindow";
+            this.chk_TerroristPlayersAlwaysTopWindow.Size = new System.Drawing.Size(268, 20);
+            this.chk_TerroristPlayersAlwaysTopWindow.TabIndex = 5;
+            this.chk_TerroristPlayersAlwaysTopWindow.Text = "TERRORIST players always top window";
+            this.chk_TerroristPlayersAlwaysTopWindow.UseVisualStyleBackColor = true;
+            this.chk_TerroristPlayersAlwaysTopWindow.CheckedChanged += new System.EventHandler(this.chk_TerroristPlayersAlwaysTopWindow_CheckedChanged);
+            // 
             // frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(456, 251);
+            this.Controls.Add(this.chk_TerroristPlayersAlwaysTopWindow);
+            this.Controls.Add(this.chk_SealPlayersAlwaysTopWindow);
+            this.Controls.Add(this.chk_ScoreBoardAlwaysOnTop);
             this.Controls.Add(this.lbl_ProgramVersion);
             this.Controls.Add(this.pnl_Options);
             this.Controls.Add(this.lbl_Version);
@@ -169,10 +214,12 @@
             this.Name = "frm_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Socom 2 Stream Data";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frm_Main_FormClosed);
             this.Load += new System.EventHandler(this.fmr_Main_Load);
             this.pnl_Options.ResumeLayout(false);
             this.pnl_Options.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -188,6 +235,9 @@
         private System.Windows.Forms.Timer tmr_CheckPCSX2;
         internal System.Windows.Forms.CheckBox chk_ShowSealHealthBars;
         internal System.Windows.Forms.CheckBox chk_ShowTerroristHealthBars;
+        internal System.Windows.Forms.CheckBox chk_ScoreBoardAlwaysOnTop;
+        internal System.Windows.Forms.CheckBox chk_SealPlayersAlwaysTopWindow;
+        internal System.Windows.Forms.CheckBox chk_TerroristPlayersAlwaysTopWindow;
     }
 }
 
