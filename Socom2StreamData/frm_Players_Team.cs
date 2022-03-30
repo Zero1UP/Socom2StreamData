@@ -1,13 +1,11 @@
-﻿using Memory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-
+using Binarysharp.MemoryManagement;
 
 namespace Socom2StreamData
 {
@@ -24,7 +22,7 @@ namespace Socom2StreamData
 
         private string _playerTeam;
         private string _Team;
-        private Mem _m;
+        private MemorySharp _m;
         public frm_Players_Team(string team)
         {
             InitializeComponent();
@@ -47,7 +45,7 @@ namespace Socom2StreamData
             set { _playerTeam = value; }
         }
 
-        public Mem MemObject
+        public MemorySharp MemObject
         {
             set { _m = value; }
         }
@@ -220,11 +218,11 @@ namespace Socom2StreamData
             {
                 Label playerNameLabel = sender as Label;
                 //Get the player's pointer address
-                string playerPointerAddress = playerNameLabel.Tag.ToString();
-                string cameraPointerAddress = ByteConverstionHelper.byteArrayHexToAddressString(_m.readBytes(GameHelper.CAMERA_POINTER_ADDRESS, 4));
+                IntPtr playerPointerAddress = (IntPtr)playerNameLabel.Tag - 0x20000000;
+                IntPtr cameraPointerAddress = (IntPtr)_m.Read<int>(GameHelper.CAMERA_POINTER_ADDRESS,false) + 0x20000000;
 
-                _m.writeMemory((int.Parse(cameraPointerAddress, System.Globalization.NumberStyles.HexNumber) + 188).ToString("X4"), "bytes", ByteConverstionHelper.formatBytesToLittleEndian(int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber), 8));
-                _m.writeMemory((int.Parse(cameraPointerAddress, System.Globalization.NumberStyles.HexNumber) + 192).ToString("X4"), "bytes", ByteConverstionHelper.formatBytesToLittleEndian(int.Parse(playerPointerAddress, System.Globalization.NumberStyles.HexNumber), 8));
+                _m.Write(cameraPointerAddress + 0xBC, playerPointerAddress, false);
+                _m.Write(cameraPointerAddress + 0xC0, playerPointerAddress, false);
             }
 
         }

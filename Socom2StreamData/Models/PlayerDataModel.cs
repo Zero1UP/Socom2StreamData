@@ -19,10 +19,7 @@ namespace Socom2StreamData
         public int _suicides { get; set; }
         public int _teamKills { get; set; }
         public short _totalPoints { get; set; }
-        public decimal _xCoord { get; set; }
-        public decimal _yCoord { get; set; }
-        public decimal _zCoord { get; set; }
-        public string _pointerAddress { get; set; }
+        public IntPtr _pointerAddress { get; set; }
         public int _hasMPBomb { get; set; }
     }
 }

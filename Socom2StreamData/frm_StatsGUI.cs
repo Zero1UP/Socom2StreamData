@@ -42,7 +42,13 @@ namespace Socom2StreamData
             }
         }
     
-
+        public Color panelBackgroundColor
+        {
+            set
+            {
+                pnl_Background.BackColor = value;
+            }
+        }
         public string sealsAlive
         {
             set

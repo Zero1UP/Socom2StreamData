@@ -15,9 +15,10 @@
             Specifying requestedExecutionLevel element will disable file and registry virtualization. 
             Remove this element if your application requires this virtualization for backwards
             compatibility.
+             <requestedExecutionLevel level="highestAvailable" uiAccess="false" />
         -->
-        <requestedExecutionLevel level="highestAvailable" uiAccess="false" />
-      </requestedPrivileges>
+
+          </requestedPrivileges>
     </security>
   </trustInfo>
 

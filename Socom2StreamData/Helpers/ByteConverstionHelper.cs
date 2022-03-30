@@ -53,7 +53,7 @@ namespace Socom2StreamData
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string byteArrayHexToHexString(byte[] data, bool byteSpacing = false)
+        public static string byteArrayHexToHexString(this byte[] data, bool byteSpacing = false)
         {
             StringBuilder result = new StringBuilder();
             foreach (byte b in data.Reverse())
@@ -71,8 +71,13 @@ namespace Socom2StreamData
 
             return result.ToString();
         }
+        public static string GetNullTerminatedString(this byte[] data)
+        {
+            var inx = Array.FindIndex(data, 0, (x) => x == 0);//search for 0
 
-        public static decimal byteHexFloatToDecimal(byte[] data, bool isPercentage =true)
+            return inx >= 0 ? Encoding.UTF8.GetString(data, 0, inx) : Encoding.UTF8.GetString(data);
+        }
+        public static decimal byteHexFloatToDecimal(this byte[] data, bool isPercentage =true)
         {
             string convertedBytesToString = byteArrayHexToHexString(data);
             Int32 convertedStringToInt = Int32.Parse(convertedBytesToString, System.Globalization.NumberStyles.AllowHexSpecifier);

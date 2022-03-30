@@ -61,14 +61,14 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DiscordRPC, Version=1.0.121.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DiscordRichPresence.1.0.121\lib\net35\DiscordRPC.dll</HintPath>
+    <Reference Include="Fasm.NET, Version=1.0.4939.27955, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Fasm.NET.1.70.03.2\lib\Fasm.NET.dll</HintPath>
     </Reference>
-    <Reference Include="Memory, Version=1.2.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Memory.dll.1.2.18.1\lib\net461\Memory.dll</HintPath>
+    <Reference Include="MemorySharp, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MemorySharp.1.2.0\lib\MemorySharp.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,18 +101,13 @@
     <Compile Include="frm_Main.Designer.cs">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_PlayerMap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_PlayerMap.Designer.cs">
-      <DependentUpon>frm_PlayerMap.cs</DependentUpon>
-    </Compile>
     <Compile Include="frm_Players_Team.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_Players_Team.Designer.cs">
       <DependentUpon>frm_Players_Team.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ConversionHelper.cs" />
     <Compile Include="Helpers\GeneralFunctionsHelper.cs" />
     <Compile Include="Models\MapDataModel.cs" />
     <Compile Include="Models\PlayerDataModel.cs" />
@@ -134,9 +129,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_PlayerMap.resx">
-      <DependentUpon>frm_PlayerMap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Players_Team.resx">
       <DependentUpon>frm_Players_Team.cs</DependentUpon>
