@@ -16,8 +16,8 @@ namespace Socom2StreamData
         MemorySharp m = null;
 
         static frm_Stats_GUI statsGUI;
-        static frm_Players_Team sealPlayersGUI;
-        static frm_Players_Team terroristPlayersGUI;
+        static frm_Players_Team frm_sealPlayers;
+        static frm_Players_Team frm_terroristPlayers;
         string mapID = "";
         List<PlayerDataModel> playerDataList= new List<PlayerDataModel>();
         
@@ -65,16 +65,16 @@ namespace Socom2StreamData
                             statsGUI.playerData = playerData;
 
                             //Set the instances of our Team Forms
-                            sealPlayersGUI.PlayerTeam = playerTeam;
+                            frm_sealPlayers.PlayerTeam = playerTeam;
+                            frm_sealPlayers.playerData = sealPlayersData;
+                            frm_sealPlayers.MemObject = m;
+                            frm_sealPlayers.Text = "frm_Seals";
 
-                            sealPlayersGUI.playerData = sealPlayersData;
-                            sealPlayersGUI.PlayerTeam = playerTeam;
-                            sealPlayersGUI.MemObject = m;
-                            sealPlayersGUI.Text = "frm_Seals";
-                            terroristPlayersGUI.PlayerTeam = playerTeam;
-                            terroristPlayersGUI.playerData = terroristPlayersData;
-                            terroristPlayersGUI.MemObject = m;
-                            terroristPlayersGUI.Text = "frm_terrorists";
+                            frm_terroristPlayers.PlayerTeam = playerTeam;
+                            frm_terroristPlayers.playerData = terroristPlayersData;
+                            frm_terroristPlayers.MemObject = m;
+                            frm_terroristPlayers.Text = "frm_terrorists";
+
                             playerDataList = playerData;
                         }
                         return;
@@ -89,8 +89,8 @@ namespace Socom2StreamData
                         statsGUI.terroristAlive = 0.ToString();
                         statsGUI.roundTime = "00:00";
                         statsGUI.playerData = null;
-                        terroristPlayersGUI.playerData = null;
-                        sealPlayersGUI.playerData = null;
+                        frm_terroristPlayers.playerData = null;
+                        frm_sealPlayers.playerData = null;
                         mapID = "";
                     }
                 }
@@ -194,31 +194,31 @@ namespace Socom2StreamData
             statsGUI.Show();
 
             // load players GUI
-            sealPlayersGUI = new frm_Players_Team("SEALS");
-            sealPlayersGUI.Show();
+            frm_sealPlayers = new frm_Players_Team("SEALS");
+            frm_sealPlayers.Show();
 
-            terroristPlayersGUI = new frm_Players_Team("TERRORISTS");
-            terroristPlayersGUI.Show();
+            frm_terroristPlayers = new frm_Players_Team("TERRORISTS");
+            frm_terroristPlayers.Show();
         }
 
         private void chk_ShowSealHealthBars_CheckedChanged(object sender, EventArgs e)
         {
             if(chk_ShowSealHealthBars.Checked)
             {
-                sealPlayersGUI.Visible = true;
+                frm_sealPlayers.Visible = true;
                 return;
             }
-            sealPlayersGUI.Visible = false;
+            frm_sealPlayers.Visible = false;
         }
 
         private void chk_ShowTerroristHealthBars_CheckedChanged(object sender, EventArgs e)
         {
             if (chk_ShowTerroristHealthBars.Checked)
             {
-                terroristPlayersGUI.Visible = true;
+                frm_terroristPlayers.Visible = true;
                 return;
             }
-            terroristPlayersGUI.Visible = false;
+            frm_terroristPlayers.Visible = false;
         }
 
         private void chk_ScoreBoardAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
@@ -228,11 +228,11 @@ namespace Socom2StreamData
         }
         private void chk_SealPlayersAlwaysTopWindow_CheckedChanged(object sender, EventArgs e)
         {
-            toggleTopWindow(sealPlayersGUI, chk_SealPlayersAlwaysTopWindow.Checked);
+            toggleTopWindow(frm_sealPlayers, chk_SealPlayersAlwaysTopWindow.Checked);
         }
         private void chk_TerroristPlayersAlwaysTopWindow_CheckedChanged(object sender, EventArgs e)
         {
-            toggleTopWindow(terroristPlayersGUI, chk_TerroristPlayersAlwaysTopWindow.Checked);
+            toggleTopWindow(frm_terroristPlayers, chk_TerroristPlayersAlwaysTopWindow.Checked);
         }
         private void toggleTopWindow(Form formToToggle,bool isTopWindow)
         {

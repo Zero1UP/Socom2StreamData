@@ -32,11 +32,13 @@ namespace Socom2StreamData
             {
                 pnl_Team.BackColor = Color.FromArgb(38, 57, 59);
                 lbl_Team.Text = "Seals";
+                this.Text = "SEALS";
 
             }else if(_Team=="TERRORISTS")
             {
                 pnl_Team.BackColor = Color.FromArgb(70, 42, 42);
                 lbl_Team.Text = "Terrorists";
+                this.Text = "TERRORISTS";
             }
         }
 
