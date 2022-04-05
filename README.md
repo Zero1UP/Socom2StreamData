@@ -8,7 +8,8 @@ Add a new source by clicking the + sign under sources.
 
 Select Window Capture and call it whatever you want. I tend to name mine after the windows that they represent. (ex. Seals, Scoreboard)
 For window Select the window you wish to be displayed and hit Ok.
-![source](https://user-images.githubusercontent.com/11056105/161668285-b8ae3814-a5de-4b7e-9d95-af8a1abc8807.PNG)
+![source1](https://user-images.githubusercontent.com/11056105/161668478-22d4c2b5-c77c-4536-922a-5914baccff18.PNG)
+
 
 Repeat this for the rest of the windows if you want them to appear and then you can move them around your scene like so:
 ![2](https://user-images.githubusercontent.com/11056105/161668342-631550b2-b22e-413b-b06e-4b0f2031ead7.PNG)
