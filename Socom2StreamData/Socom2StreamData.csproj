@@ -161,10 +161,68 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\AKS-74.png" />
+    <None Include="Resources\DE .50.png" />
+    <None Include="Resources\MP5.png" />
+    <None Include="Resources\PMN Mine.png" />
+    <None Include="Resources\STG 77.png" />
+    <None Include="Resources\HK5SD.png" />
+    <None Include="Resources\M9.png" />
+    <None Include="Resources\M82A1A.png" />
+    <None Include="Resources\Model 18.png" />
+    <None Include="Resources\M63A.png" />
+    <None Include="Resources\IW-80 A2.png" />
+    <None Include="Resources\M16A2.png" />
+    <None Include="Resources\M11.png" />
+    <None Include="Resources\M87ELR.png" />
+    <None Include="Resources\Claymore.png" />
+    <None Include="Resources\AK-105.png" />
+    <None Include="Resources\C4.png" />
+    <None Include="Resources\M60E3.png" />
+    <None Include="Resources\Mark 23.png" />
+    <None Include="Resources\9MM Sub.png" />
+    <None Include="Resources\AT-4.png" />
+    <None Include="Resources\M40A1.png" />
+    <None Include="Resources\552.png" />
+    <None Include="Resources\M14.png" />
+    <None Include="Resources\M67.png" />
+    <None Include="Resources\HK5K.png" />
+    <None Include="Resources\Mark 23SD.png" />
+    <None Include="Resources\AN-M8.png" />
+    <None Include="Resources\SASR.png" />
+    <None Include="Resources\RA-14.png" />
+    <None Include="Resources\9MM Pistol.png" />
+    <None Include="Resources\M3 12 Gauge.png" />
+    <None Include="Resources\12 Gauge Pump.png" />
+    <None Include="Resources\552SD.png" />
+    <None Include="Resources\TA 12 Gauge.png" />
+    <None Include="Resources\SP-10.png" />
+    <None Include="Resources\RPG-7.png" />
+    <None Include="Resources\M4A1.png" />
+    <None Include="Resources\M4A1SD.png" />
+    <None Include="Resources\HE.png" />
+    <None Include="Resources\Mark141.png" />
+    <None Include="Resources\F90.png" />
+    <None Include="Resources\AK-47.png" />
+    <None Include="Resources\F57.png" />
+    <None Include="Resources\SR-25.png" />
+    <None Include="Resources\RMG.png" />
+    <None Include="Resources\Detonator.png" />
+    <None Include="Resources\30MM MGL.png" />
+    <None Include="Resources\Designator.png" />
+    <None Include="Resources\M16A2-M203.png" />
+    <None Include="Resources\HK5.png" />
+    <None Include="Resources\OICW.png" />
+    <None Include="Resources\M4A1-M203.png" />
+    <None Include="Resources\MGL.png" />
+    <None Include="Resources\LMG.png" />
+    <None Include="Resources\MPBomb.png" />
+    <None Include="Resources\M79.png" />
+    <None Include="Resources\s2GUI_70p.png" />
+    <None Include="Resources\s2GUI_7.png" />
+    <None Include="Resources\s2GUI_50p.png" />
     <Content Include="socom2_stats_0YS_icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

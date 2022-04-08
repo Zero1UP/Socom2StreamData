@@ -11,7 +11,7 @@ namespace Socom2StreamData
 {
     public partial class frm_Main : Form
     {
-        private const string PCSX2PROCESSNAME = "pcsx2dis";
+        private const string PCSX2PROCESSNAME = "pcsx2";
         bool pcsx2Running;
         MemorySharp m = null;
 
@@ -140,7 +140,7 @@ namespace Socom2StreamData
                     PD.EquipmentSlot2 = m.Read<byte>(eqSlot2NamePointer, 12, false).GetNullTerminatedString();
                     PD.EquipmentSlot3 = m.Read<byte>(eqSlot3NamePointer, 12, false).GetNullTerminatedString();
                     PD.WeaponIndex = m.Read<int>(playerPointerAddress + GameHelper.PLAYER_CURRENT_WEAPON_INDEX, false);
-                    if (eqExtraPointer != (IntPtr)0x20000000)
+                    if (eqExtraPointer != (IntPtr)0x20000004)
                     {
                         IntPtr eqExtraNamePointer = (IntPtr)m.Read<int>(eqExtraPointer, false) + 0x20000000;
                         PD.ExtraEquipmentSlot = m.Read<byte>(eqExtraNamePointer, 12, false).GetNullTerminatedString();

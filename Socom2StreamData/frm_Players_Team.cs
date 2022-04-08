@@ -87,7 +87,7 @@ namespace Socom2StreamData
                         pictureBox.Tag = item.PlayerName;
                         if (item.HasMPBomb == 1)
                         {
-                            pictureBox.Image = Properties.Resources.mpBomb;
+                            pictureBox.Image = Properties.Resources.MPBomb;
                         }
                         else
                         {
