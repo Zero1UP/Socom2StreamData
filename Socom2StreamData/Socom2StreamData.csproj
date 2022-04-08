@@ -161,54 +161,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\s2GUI_7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\s2GUI_70p.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\s2GUI_50p.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mpBomb.png" />
-    <None Include="Resources\Claymore.png" />
-    <None Include="Resources\Detonator.png" />
-    <None Include="Resources\M4A1.png" />
-    <None Include="Resources\M4A1SD.PNG" />
-    <None Include="Resources\M67.png" />
-    <None Include="Resources\Mark23.png" />
-    <None Include="Resources\AK-105.png" />
-    <None Include="Resources\RA-14.png" />
-    <None Include="Resources\M16A2.png" />
-    <None Include="Resources\HK5.png" />
-    <None Include="Resources\HK5SD.png" />
-    <None Include="Resources\IW-80_A2.png" />
-    <None Include="Resources\M3_12_Gauge.png" />
-    <None Include="Resources\M11.png" />
-    <None Include="Resources\M14.png" />
-    <None Include="Resources\M40A1.png" />
-    <None Include="Resources\M63A.png" />
-    <None Include="Resources\M79.png" />
-    <None Include="Resources\M82A1A.png" />
-    <None Include="Resources\M87ELR.png" />
-    <None Include="Resources\MGL.png" />
-    <None Include="Resources\Model_18.png" />
-    <None Include="Resources\PMN_Mine.png" />
-    <None Include="Resources\RPG-7.png" />
-    <None Include="Resources\SASR.png" />
-    <None Include="Resources\STG_77.png" />
-    <None Include="Resources\TA_12_Gauge.png" />
-    <None Include="Resources\552SD.png" />
-    <None Include="Resources\AK-47.png" />
-    <None Include="Resources\AKS-74.png" />
-    <None Include="Resources\AT-4.png" />
-    <None Include="Resources\F57.png" />
-    <None Include="Resources\F90.png" />
-    <None Include="Resources\226.png" />
-    <None Include="Resources\552.png" />
-    <None Include="Resources\9MM_Sub.png" />
     <Content Include="socom2_stats_0YS_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
