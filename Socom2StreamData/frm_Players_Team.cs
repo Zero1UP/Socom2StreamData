@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Binarysharp.MemoryManagement;
+using Socom2StreamData.Models;
 
 namespace Socom2StreamData
 {
@@ -32,13 +33,13 @@ namespace Socom2StreamData
             {
                 pnl_Team.BackColor = Color.FromArgb(38, 57, 59);
                 lbl_Team.Text = "Seals";
-                this.Text = "SEALS";
+                this.Text = team;
 
             }else if(_Team=="TERRORISTS")
             {
                 pnl_Team.BackColor = Color.FromArgb(70, 42, 42);
                 lbl_Team.Text = "Terrorists";
-                this.Text = "TERRORISTS";
+                this.Text = team;
             }
         }
 
@@ -68,7 +69,7 @@ namespace Socom2StreamData
                         .Where(label => label.Name.Contains("lbl_Player_") && label.Text == "")
                         .OrderBy(label => label.Name);
 
-                        GeneralFunctionsHelper.setLabel(labels.First(), item._PlayerName, item._LivingStatus, item._pointerAddress);
+                        GeneralFunctionsHelper.setLabel(labels.First(), item.PlayerName, item.LivingStatus, item.PointerAddress);
 
                         var healthBars = pnl_Team_Players.Controls.OfType<Controls.HealthBar>()
                        .Where(hb => hb.Name.Contains("hb_Player_") && hb.healthSet == false)
@@ -83,21 +84,53 @@ namespace Socom2StreamData
                         .OrderBy(hb => hb.Name);
 
                         var pictureBox = pictureBoxes.First();
-                        pictureBox.Tag = item._PlayerName;
-                        if (item._hasMPBomb == 1)
+                        pictureBox.Tag = item.PlayerName;
+                        if (item.HasMPBomb == 1)
                         {
-                            pictureBox.Visible = true;
+                            pictureBox.Image = Properties.Resources.mpBomb;
                         }
                         else
                         {
-                            pictureBox.Visible = false;
+                            string currentWeapon = "";
+
+                            try
+                            {
+                                switch (item.WeaponIndex)
+                                {
+                                    case 0:
+                                        currentWeapon = item.PrimaryWeapon;
+                                        break;
+                                    case 1:
+                                        currentWeapon = item.SecondaryWeapon;
+                                        break;
+                                    case 2:
+                                        currentWeapon = item.EquipmentSlot1;
+                                        break;
+                                    case 3:
+                                        currentWeapon = item.EquipmentSlot2;
+                                        break;
+                                    case 4:
+                                        currentWeapon = item.EquipmentSlot3;
+                                        break;
+                                    case 5:
+                                        currentWeapon = item.ExtraEquipmentSlot;
+                                        break;
+                                }
+                                pictureBox.Image = Collections.Weapons[currentWeapon];
+                                pictureBox.Visible = true;
+                            }
+                            catch (Exception ex)
+                            {
+
+                                Console.Write(currentWeapon);
+                            }
                         }
 
                         //If the the teams match then we want to show only thier health bars
                         if (_playerTeam == _Team || _playerTeam == "SPECTATOR")
                         {
                             healthBar.healthBarColor = Color.FromArgb(25, 140, 25);
-                            healthBar.playerHealth = decimal.ToInt32(item._PlayerHealth);
+                            healthBar.playerHealth = decimal.ToInt32(item.PlayerHealth);
                             healthBar.healthSet = true;
                         }
                         else
@@ -106,7 +139,7 @@ namespace Socom2StreamData
                             healthBar.playerHealth = 100;
                             healthBar.healthSet = true;
 
-                            if (item._LivingStatus == "DEAD")
+                            if (item.LivingStatus == "DEAD")
                             {
                                 healthBar.healthBarColor = Color.FromArgb(75, 75, 75);
                             }

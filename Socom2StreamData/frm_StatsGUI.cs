@@ -84,23 +84,23 @@ namespace Socom2StreamData
                     foreach (var item in value)
                     {
 
-                        if (item._Team == "SEALS")
+                        if (item.Team == "SEALS")
                         {
 
                             var labels = pnl_Background.Controls
                            .OfType<Label>()
                            .Where(label => label.Name.Contains("lbl_Seal_") && label.Text == "")
                            .OrderBy(label => label.Name); ;
-                            setLabel(labels.First(), item._PlayerName, item._LivingStatus);
+                            setLabel(labels.First(), item.PlayerName, item.LivingStatus);
 
                         }
-                        else if (item._Team == "TERRORISTS")
+                        else if (item.Team == "TERRORISTS")
                         {
                             var labels = pnl_Background.Controls
                            .OfType<Label>()
                            .Where(label => label.Name.Contains("lbl_Terr_") && label.Text == "")
                            .OrderBy(label => label.Name);
-                            setLabel(labels.First(), item._PlayerName, item._LivingStatus);
+                            setLabel(labels.First(), item.PlayerName, item.LivingStatus);
 
 
                         }

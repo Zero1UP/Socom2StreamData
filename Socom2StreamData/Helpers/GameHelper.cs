@@ -28,7 +28,14 @@ namespace Socom2StreamData
         public static int PLAYER_HASMPBOMB_OFFSET = 0x87C;
         public static int PLAYER_ALIVE_OFFSET = 0xF7A;
         public static int PLAYER_HEALTH_OFFSET =0x1044;
-
+        public static int PLAYTER_PRIMARY_WEAPON_POINTER_OFFSET = 0x6C4;
+        public static int PLAYER_SECONDARY_WEAPON_POINTER_OFFSET = 0x06C8;
+        public static int PLAYER_EQUIP1_POINTER_OFFSET = 0x6CC;
+        public static int PLAYER_EQUIP2_POINTER_OFFSET = 0x6D0;
+        public static int PLAYER_EQUIP3_POINTER_OFFSET = 0x6D4;
+        public static int PLAYER_EXTRA_POINTER_OFFSET = 0x6D8;
+        public static int PLAYER_ROUNDS_SHOTS_FIRED_OFFSET = 0x594;
+        public static int PLAYER_CURRENT_WEAPON_INDEX = 0xE04;
 
         public static IntPtr CAMERA_POINTER_ADDRESS = new IntPtr(0x204429B0); // not updated
         //Add BC to the data to get the new address
