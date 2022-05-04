@@ -31,6 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Players_Team));
             this.pnl_Team = new System.Windows.Forms.Panel();
             this.pnl_Team_Players = new System.Windows.Forms.Panel();
+            this.pct_Player8_Bomb = new System.Windows.Forms.PictureBox();
+            this.pct_Player7_Bomb = new System.Windows.Forms.PictureBox();
+            this.pct_Player6_Bomb = new System.Windows.Forms.PictureBox();
+            this.pct_Player5_Bomb = new System.Windows.Forms.PictureBox();
+            this.pct_Player4_Bomb = new System.Windows.Forms.PictureBox();
+            this.pct_Player3_Bomb = new System.Windows.Forms.PictureBox();
+            this.pct_Player2_Bomb = new System.Windows.Forms.PictureBox();
             this.pct_Player1_Bomb = new System.Windows.Forms.PictureBox();
             this.hb_Player_p8 = new Socom2StreamData.Controls.HealthBar();
             this.hb_Player_p7 = new Socom2StreamData.Controls.HealthBar();
@@ -49,23 +56,16 @@
             this.lbl_Player_p4 = new System.Windows.Forms.Label();
             this.lbl_Player_p5 = new System.Windows.Forms.Label();
             this.lbl_Team = new System.Windows.Forms.Label();
-            this.pct_Player2_Bomb = new System.Windows.Forms.PictureBox();
-            this.pct_Player3_Bomb = new System.Windows.Forms.PictureBox();
-            this.pct_Player4_Bomb = new System.Windows.Forms.PictureBox();
-            this.pct_Player5_Bomb = new System.Windows.Forms.PictureBox();
-            this.pct_Player6_Bomb = new System.Windows.Forms.PictureBox();
-            this.pct_Player7_Bomb = new System.Windows.Forms.PictureBox();
-            this.pct_Player8_Bomb = new System.Windows.Forms.PictureBox();
             this.pnl_Team.SuspendLayout();
             this.pnl_Team_Players.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player1_Bomb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player2_Bomb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player3_Bomb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player4_Bomb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player5_Bomb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player6_Bomb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player7_Bomb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pct_Player8_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player7_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player6_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player5_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player4_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player3_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player2_Bomb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player1_Bomb)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl_Team
@@ -113,8 +113,93 @@
             this.pnl_Team_Players.Size = new System.Drawing.Size(115, 250);
             this.pnl_Team_Players.TabIndex = 16;
             // 
+            // pct_Player8_Bomb
+            // 
+            this.pct_Player8_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player8_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player8_Bomb.Image")));
+            this.pct_Player8_Bomb.Location = new System.Drawing.Point(87, 217);
+            this.pct_Player8_Bomb.Name = "pct_Player8_Bomb";
+            this.pct_Player8_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player8_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player8_Bomb.TabIndex = 28;
+            this.pct_Player8_Bomb.TabStop = false;
+            this.pct_Player8_Bomb.Visible = false;
+            // 
+            // pct_Player7_Bomb
+            // 
+            this.pct_Player7_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player7_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player7_Bomb.Image")));
+            this.pct_Player7_Bomb.Location = new System.Drawing.Point(87, 187);
+            this.pct_Player7_Bomb.Name = "pct_Player7_Bomb";
+            this.pct_Player7_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player7_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player7_Bomb.TabIndex = 27;
+            this.pct_Player7_Bomb.TabStop = false;
+            this.pct_Player7_Bomb.Visible = false;
+            // 
+            // pct_Player6_Bomb
+            // 
+            this.pct_Player6_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player6_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player6_Bomb.Image")));
+            this.pct_Player6_Bomb.Location = new System.Drawing.Point(87, 157);
+            this.pct_Player6_Bomb.Name = "pct_Player6_Bomb";
+            this.pct_Player6_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player6_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player6_Bomb.TabIndex = 26;
+            this.pct_Player6_Bomb.TabStop = false;
+            this.pct_Player6_Bomb.Visible = false;
+            // 
+            // pct_Player5_Bomb
+            // 
+            this.pct_Player5_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player5_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player5_Bomb.Image")));
+            this.pct_Player5_Bomb.Location = new System.Drawing.Point(87, 127);
+            this.pct_Player5_Bomb.Name = "pct_Player5_Bomb";
+            this.pct_Player5_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player5_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player5_Bomb.TabIndex = 25;
+            this.pct_Player5_Bomb.TabStop = false;
+            this.pct_Player5_Bomb.Visible = false;
+            // 
+            // pct_Player4_Bomb
+            // 
+            this.pct_Player4_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player4_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player4_Bomb.Image")));
+            this.pct_Player4_Bomb.Location = new System.Drawing.Point(87, 97);
+            this.pct_Player4_Bomb.Name = "pct_Player4_Bomb";
+            this.pct_Player4_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player4_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player4_Bomb.TabIndex = 24;
+            this.pct_Player4_Bomb.TabStop = false;
+            this.pct_Player4_Bomb.Visible = false;
+            // 
+            // pct_Player3_Bomb
+            // 
+            this.pct_Player3_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player3_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player3_Bomb.Image")));
+            this.pct_Player3_Bomb.Location = new System.Drawing.Point(87, 67);
+            this.pct_Player3_Bomb.Name = "pct_Player3_Bomb";
+            this.pct_Player3_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player3_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player3_Bomb.TabIndex = 23;
+            this.pct_Player3_Bomb.TabStop = false;
+            this.pct_Player3_Bomb.Visible = false;
+            // 
+            // pct_Player2_Bomb
+            // 
+            this.pct_Player2_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pct_Player2_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player2_Bomb.Image")));
+            this.pct_Player2_Bomb.Location = new System.Drawing.Point(87, 37);
+            this.pct_Player2_Bomb.Name = "pct_Player2_Bomb";
+            this.pct_Player2_Bomb.Size = new System.Drawing.Size(22, 18);
+            this.pct_Player2_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pct_Player2_Bomb.TabIndex = 22;
+            this.pct_Player2_Bomb.TabStop = false;
+            this.pct_Player2_Bomb.Visible = false;
+            // 
             // pct_Player1_Bomb
             // 
+            this.pct_Player1_Bomb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.pct_Player1_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player1_Bomb.Image")));
             this.pct_Player1_Bomb.Location = new System.Drawing.Point(87, 6);
             this.pct_Player1_Bomb.Name = "pct_Player1_Bomb";
@@ -314,83 +399,6 @@
             this.lbl_Team.MouseEnter += new System.EventHandler(this.lbl_Team_MouseEnter);
             this.lbl_Team.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lbl_Team_MouseMove);
             // 
-            // pct_Player2_Bomb
-            // 
-            this.pct_Player2_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player2_Bomb.Image")));
-            this.pct_Player2_Bomb.Location = new System.Drawing.Point(87, 37);
-            this.pct_Player2_Bomb.Name = "pct_Player2_Bomb";
-            this.pct_Player2_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player2_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player2_Bomb.TabIndex = 22;
-            this.pct_Player2_Bomb.TabStop = false;
-            this.pct_Player2_Bomb.Visible = false;
-            // 
-            // pct_Player3_Bomb
-            // 
-            this.pct_Player3_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player3_Bomb.Image")));
-            this.pct_Player3_Bomb.Location = new System.Drawing.Point(87, 67);
-            this.pct_Player3_Bomb.Name = "pct_Player3_Bomb";
-            this.pct_Player3_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player3_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player3_Bomb.TabIndex = 23;
-            this.pct_Player3_Bomb.TabStop = false;
-            this.pct_Player3_Bomb.Visible = false;
-            // 
-            // pct_Player4_Bomb
-            // 
-            this.pct_Player4_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player4_Bomb.Image")));
-            this.pct_Player4_Bomb.Location = new System.Drawing.Point(87, 97);
-            this.pct_Player4_Bomb.Name = "pct_Player4_Bomb";
-            this.pct_Player4_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player4_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player4_Bomb.TabIndex = 24;
-            this.pct_Player4_Bomb.TabStop = false;
-            this.pct_Player4_Bomb.Visible = false;
-            // 
-            // pct_Player5_Bomb
-            // 
-            this.pct_Player5_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player5_Bomb.Image")));
-            this.pct_Player5_Bomb.Location = new System.Drawing.Point(87, 127);
-            this.pct_Player5_Bomb.Name = "pct_Player5_Bomb";
-            this.pct_Player5_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player5_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player5_Bomb.TabIndex = 25;
-            this.pct_Player5_Bomb.TabStop = false;
-            this.pct_Player5_Bomb.Visible = false;
-            // 
-            // pct_Player6_Bomb
-            // 
-            this.pct_Player6_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player6_Bomb.Image")));
-            this.pct_Player6_Bomb.Location = new System.Drawing.Point(87, 157);
-            this.pct_Player6_Bomb.Name = "pct_Player6_Bomb";
-            this.pct_Player6_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player6_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player6_Bomb.TabIndex = 26;
-            this.pct_Player6_Bomb.TabStop = false;
-            this.pct_Player6_Bomb.Visible = false;
-            // 
-            // pct_Player7_Bomb
-            // 
-            this.pct_Player7_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player7_Bomb.Image")));
-            this.pct_Player7_Bomb.Location = new System.Drawing.Point(87, 187);
-            this.pct_Player7_Bomb.Name = "pct_Player7_Bomb";
-            this.pct_Player7_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player7_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player7_Bomb.TabIndex = 27;
-            this.pct_Player7_Bomb.TabStop = false;
-            this.pct_Player7_Bomb.Visible = false;
-            // 
-            // pct_Player8_Bomb
-            // 
-            this.pct_Player8_Bomb.Image = ((System.Drawing.Image)(resources.GetObject("pct_Player8_Bomb.Image")));
-            this.pct_Player8_Bomb.Location = new System.Drawing.Point(87, 217);
-            this.pct_Player8_Bomb.Name = "pct_Player8_Bomb";
-            this.pct_Player8_Bomb.Size = new System.Drawing.Size(22, 18);
-            this.pct_Player8_Bomb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pct_Player8_Bomb.TabIndex = 28;
-            this.pct_Player8_Bomb.TabStop = false;
-            this.pct_Player8_Bomb.Visible = false;
-            // 
             // frm_Players_Team
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -404,14 +412,14 @@
             this.pnl_Team.ResumeLayout(false);
             this.pnl_Team.PerformLayout();
             this.pnl_Team_Players.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player1_Bomb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player2_Bomb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player3_Bomb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player4_Bomb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player5_Bomb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player6_Bomb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_Player7_Bomb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pct_Player8_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player7_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player6_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player5_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player4_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player3_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player2_Bomb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_Player1_Bomb)).EndInit();
             this.ResumeLayout(false);
 
         }

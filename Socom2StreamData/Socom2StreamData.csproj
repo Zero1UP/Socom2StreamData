@@ -130,6 +130,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Players_Team.resx">
       <DependentUpon>frm_Players_Team.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_StatsGUI.resx">
       <DependentUpon>frm_StatsGUI.cs</DependentUpon>
