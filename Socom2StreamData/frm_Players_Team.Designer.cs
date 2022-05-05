@@ -283,7 +283,7 @@
             // 
             // lbl_Player_p1
             // 
-            this.lbl_Player_p1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p1.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p1.Location = new System.Drawing.Point(8, 6);
@@ -296,7 +296,7 @@
             // 
             // lbl_Player_p8
             // 
-            this.lbl_Player_p8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p8.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p8.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p8.Location = new System.Drawing.Point(8, 216);
@@ -309,7 +309,7 @@
             // 
             // lbl_Player_p2
             // 
-            this.lbl_Player_p2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p2.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p2.Location = new System.Drawing.Point(8, 36);
@@ -322,7 +322,7 @@
             // 
             // lbl_Player_p7
             // 
-            this.lbl_Player_p7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p7.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p7.Location = new System.Drawing.Point(8, 186);
@@ -335,7 +335,7 @@
             // 
             // lbl_Player_p3
             // 
-            this.lbl_Player_p3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p3.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p3.Location = new System.Drawing.Point(8, 66);
@@ -348,7 +348,7 @@
             // 
             // lbl_Player_p6
             // 
-            this.lbl_Player_p6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p6.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p6.Location = new System.Drawing.Point(8, 156);
@@ -361,7 +361,7 @@
             // 
             // lbl_Player_p4
             // 
-            this.lbl_Player_p4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p4.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p4.Location = new System.Drawing.Point(8, 96);
@@ -374,7 +374,7 @@
             // 
             // lbl_Player_p5
             // 
-            this.lbl_Player_p5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.lbl_Player_p5.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Player_p5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbl_Player_p5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lbl_Player_p5.Location = new System.Drawing.Point(8, 126);

@@ -112,48 +112,61 @@ namespace Socom2StreamData
                 IntPtr playerPointerAddress = (IntPtr)m.Read<int>(IntPtr.Add(entityObjectPointer, GameHelper.ENTITY_INDEX_PLAYER_POINTER_OFFSET), false) + 0x20000000;
                 IntPtr playerNamePointerAddress = (IntPtr)m.Read<int>(IntPtr.Add(playerPointerAddress, GameHelper.PLAYER_NAME_OFFSET), false) + 0x20000000;
                 string teamID = GameHelper.GetTeamName(m.Read<int>(IntPtr.Add(playerPointerAddress, GameHelper.PLAYER_TEAMID_OFFSET), false).ToString("X8"));
-               
+                PlayerDataModel PD = new PlayerDataModel();
                 if (teamID == "SEALS" || teamID == "TERRORISTS")
                 {
-                    PlayerDataModel PD = new PlayerDataModel();
-                    PD.PlayerName = m.Read<byte>(playerNamePointerAddress,20,false).GetNullTerminatedString();
-                    PD.PointerAddress = playerPointerAddress;
-                    PD.Team = teamID;
-                    PD.PlayerHealth = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_HEALTH_OFFSET, 4, false).byteHexFloatToDecimal();
-                    PD.HasMPBomb = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_HASMPBOMB_OFFSET, false);
-                    int livingStatus = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_ALIVE_OFFSET,false);
+                    try
+                    {
+                      
+                        PD.PlayerName = m.Read<byte>(playerNamePointerAddress, 20, false).GetNullTerminatedString();
+                        PD.PointerAddress = playerPointerAddress;
+                        PD.Team = teamID;
+                        PD.PlayerHealth = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_HEALTH_OFFSET, 4, false).byteHexFloatToDecimal();
+                        PD.HasMPBomb = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_HASMPBOMB_OFFSET, false);
+                        int livingStatus = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_ALIVE_OFFSET, false);
 
-                    IntPtr playerPrimaryWeaponPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYTER_PRIMARY_WEAPON_POINTER_OFFSET, false) + 0x20000004;
-                    IntPtr primaryWeaponNamePointer = (IntPtr)m.Read<int>(playerPrimaryWeaponPointer, false) + 0x20000000;
-                    IntPtr secondaryWeaponPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_SECONDARY_WEAPON_POINTER_OFFSET, false) + 0x20000004;
-                    IntPtr secondaryWeaponNamePointer = (IntPtr)m.Read<int>(secondaryWeaponPointer, false) + 0x20000000;
-                    IntPtr eqSlot1Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP1_POINTER_OFFSET, false) + 0x20000004;
-                    IntPtr eqSlot1NamePointer = (IntPtr)m.Read<int>(eqSlot1Pointer, false) + 0x20000000;
-                    IntPtr eqSlot2Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP2_POINTER_OFFSET, false) + 0x20000004;
-                    IntPtr eqSlot2NamePointer = (IntPtr)m.Read<int>(eqSlot2Pointer, false) + 0x20000000;
-                    IntPtr eqSlot3Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP3_POINTER_OFFSET, false) + 0x20000004;
-                    IntPtr eqSlot3NamePointer = (IntPtr)m.Read<int>(eqSlot3Pointer, false) + 0x20000000;
-                    IntPtr eqExtraPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EXTRA_POINTER_OFFSET, false) + 0x20000004;
-                    PD.PrimaryWeapon = m.Read<byte>(primaryWeaponNamePointer, 12, false).GetNullTerminatedString();
-                    PD.SecondaryWeapon = m.Read<byte>(secondaryWeaponNamePointer, 12, false).GetNullTerminatedString();
-                    PD.EquipmentSlot1 = m.Read<byte>(eqSlot1NamePointer, 12, false).GetNullTerminatedString();
-                    PD.EquipmentSlot2 = m.Read<byte>(eqSlot2NamePointer, 12, false).GetNullTerminatedString();
-                    PD.EquipmentSlot3 = m.Read<byte>(eqSlot3NamePointer, 12, false).GetNullTerminatedString();
-                    PD.WeaponIndex = m.Read<int>(playerPointerAddress + GameHelper.PLAYER_CURRENT_WEAPON_INDEX, false);
-                    if (eqExtraPointer != (IntPtr)0x20000004)
-                    {
-                        IntPtr eqExtraNamePointer = (IntPtr)m.Read<int>(eqExtraPointer, false) + 0x20000000;
-                        PD.ExtraEquipmentSlot = m.Read<byte>(eqExtraNamePointer, 12, false).GetNullTerminatedString();
+                        IntPtr playerPrimaryWeaponPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYTER_PRIMARY_WEAPON_POINTER_OFFSET, false) + 0x20000004;
+                        IntPtr primaryWeaponNamePointer = (IntPtr)m.Read<int>(playerPrimaryWeaponPointer, false) + 0x20000000;
+                        IntPtr secondaryWeaponPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_SECONDARY_WEAPON_POINTER_OFFSET, false) + 0x20000004;
+                        IntPtr secondaryWeaponNamePointer = (IntPtr)m.Read<int>(secondaryWeaponPointer, false) + 0x20000000;
+                        IntPtr eqSlot1Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP1_POINTER_OFFSET, false) + 0x20000004;
+                        IntPtr eqSlot1NamePointer = (IntPtr)m.Read<int>(eqSlot1Pointer, false) + 0x20000000;
+                        IntPtr eqSlot2Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP2_POINTER_OFFSET, false) + 0x20000004;
+                        IntPtr eqSlot2NamePointer = (IntPtr)m.Read<int>(eqSlot2Pointer, false) + 0x20000000;
+                        IntPtr eqSlot3Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP3_POINTER_OFFSET, false) + 0x20000004;
+                        IntPtr eqSlot3NamePointer = (IntPtr)m.Read<int>(eqSlot3Pointer, false) + 0x20000000;
+                        IntPtr eqExtraPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EXTRA_POINTER_OFFSET, false) + 0x20000004;
+                        PD.PrimaryWeapon = m.Read<byte>(primaryWeaponNamePointer, 12, false).GetNullTerminatedString();
+                        PD.SecondaryWeapon = m.Read<byte>(secondaryWeaponNamePointer, 12, false).GetNullTerminatedString();
+                        PD.EquipmentSlot1 = m.Read<byte>(eqSlot1NamePointer, 12, false).GetNullTerminatedString();
+                        PD.EquipmentSlot2 = m.Read<byte>(eqSlot2NamePointer, 12, false).GetNullTerminatedString();
+                        PD.EquipmentSlot3 = m.Read<byte>(eqSlot3NamePointer, 12, false).GetNullTerminatedString();
+                        PD.WeaponIndex = m.Read<int>(playerPointerAddress + GameHelper.PLAYER_CURRENT_WEAPON_INDEX, false);
+                        if (eqExtraPointer != (IntPtr)0x20000004)
+                        {
+                            IntPtr eqExtraNamePointer = (IntPtr)m.Read<int>(eqExtraPointer, false) + 0x20000000;
+                            PD.ExtraEquipmentSlot = m.Read<byte>(eqExtraNamePointer, 12, false).GetNullTerminatedString();
+                        }
+                        if (livingStatus == 1)
+                        {
+                            PD.LivingStatus = "ALIVE";
+                        }
+                        else
+                        {
+                            PD.LivingStatus = "DEAD";
+                        }
+                        
                     }
-                    if (livingStatus == 1)
+                    catch (Exception ex)
                     {
-                        PD.LivingStatus = "ALIVE";
+
+                        Console.Write(ex.ToString());
                     }
-                    else
+                    finally
                     {
-                        PD.LivingStatus = "DEAD";
+                        playerData.Add(PD);
                     }
-                    playerData.Add(PD);
+
                 }
                 entityObjectPointer = (IntPtr)m.Read<int>(entityObjectPointer, false) + 0x20000000; // Get the next pointer in the list
             } while (entityObjectPointer != (IntPtr)0x20442CEC);

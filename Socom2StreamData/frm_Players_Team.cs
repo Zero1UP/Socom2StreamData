@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Binarysharp.MemoryManagement;
+using Socom2StreamData.Controls;
 using Socom2StreamData.Models;
 
 namespace Socom2StreamData
@@ -57,37 +58,30 @@ namespace Socom2StreamData
         {
             set
             {
-                resetPlayers();
+                
+                List<Label> playerNamesList = pnl_Team_Players.Controls.OfType<Label>().OrderBy(p => p.Name).ToList();
+                List<HealthBar> playerHealthBarsList = pnl_Team_Players.Controls.OfType<HealthBar>().OrderBy(p => p.Name).ToList();
+                List<PictureBox> playerWeaponsList = pnl_Team_Players.Controls.OfType<PictureBox>().OrderBy(p => p.Name).ToList();
 
                 if (value != null)
                 {
+                    List<Label> skipPlayerNames = playerNamesList.Skip(value.Count).ToList();
+                    List<HealthBar> skipPlayerHealthBars = playerHealthBarsList.Skip(value.Count).ToList();
+                    List<PictureBox> skipPlayerWeapons = playerWeaponsList.Skip(value.Count).ToList();
+
+                    SetIgnoredControls(skipPlayerNames,skipPlayerHealthBars, skipPlayerWeapons);
+
+                    int index = 0;
                     foreach (var item in value)
                     {
-                        //Get all labels and assign player Data to them
-                        var labels = pnl_Team_Players.Controls
-                        .OfType<Label>()
-                        .Where(label => label.Name.Contains("lbl_Player_") && label.Text == "")
-                        .OrderBy(label => label.Name);
+                        GeneralFunctionsHelper.setLabel(playerNamesList[index], item.PlayerName, item.LivingStatus, item.PointerAddress);
+                        playerNamesList[index].Visible = true;
+                        playerHealthBarsList[index].Visible = true;
 
-                        GeneralFunctionsHelper.setLabel(labels.First(), item.PlayerName, item.LivingStatus, item.PointerAddress);
-
-                        var healthBars = pnl_Team_Players.Controls.OfType<Controls.HealthBar>()
-                       .Where(hb => hb.Name.Contains("hb_Player_") && hb.healthSet == false)
-                       .OrderBy(hb => hb.Name);
-                        //Gets the first health bar that hasn't been set
-                        var healthBar = healthBars.First();
-                        healthBar.Visible = true;
-
-
-                        var pictureBoxes = pnl_Team_Players.Controls.OfType<PictureBox>()
-                        .Where(pc => pc.Tag == "")
-                        .OrderBy(hb => hb.Name);
-
-                        var pictureBox = pictureBoxes.First();
-                        pictureBox.Tag = item.PlayerName;
+                        playerWeaponsList[index].Tag = item.PlayerName;
                         if (item.HasMPBomb == 1)
                         {
-                            pictureBox.Image = Properties.Resources.MPBomb;
+                            playerWeaponsList[index].Image = Properties.Resources.MPBomb;
                         }
                         else
                         {
@@ -116,8 +110,8 @@ namespace Socom2StreamData
                                         currentWeapon = item.ExtraEquipmentSlot;
                                         break;
                                 }
-                                pictureBox.Image = Collections.Weapons[currentWeapon];
-                                pictureBox.Visible = true;
+                                playerWeaponsList[index].Image = Collections.Weapons[currentWeapon];
+                                playerWeaponsList[index].Visible = true;
                             }
                             catch (Exception ex)
                             {
@@ -127,23 +121,25 @@ namespace Socom2StreamData
                         }
 
                         //If the the teams match then we want to show only thier health bars
+                       
                         if (_playerTeam == _Team || _playerTeam == "SPECTATOR")
                         {
-                            healthBar.healthBarColor = Color.FromArgb(25, 140, 25);
-                            healthBar.playerHealth = decimal.ToInt32(item.PlayerHealth);
-                            healthBar.healthSet = true;
+                            playerHealthBarsList[index].healthBarColor = Color.FromArgb(25, 140, 25);
+                            playerHealthBarsList[index].playerHealth = decimal.ToInt32(item.PlayerHealth);
+                            playerHealthBarsList[index].healthSet = true;
                         }
                         else
                         {
-                            healthBar.healthBarColor = Color.FromArgb(91, 86, 18);
-                            healthBar.playerHealth = 100;
-                            healthBar.healthSet = true;
+                            playerHealthBarsList[index].healthBarColor = Color.FromArgb(91, 86, 18);
+                            playerHealthBarsList[index].playerHealth = 100;
+                            playerHealthBarsList[index].healthSet = true;
 
                             if (item.LivingStatus == "DEAD")
                             {
-                                healthBar.healthBarColor = Color.FromArgb(75, 75, 75);
+                                playerHealthBarsList[index].healthBarColor = Color.FromArgb(75, 75, 75);
                             }
                         }
+                        index++;
 
                     }
                 }
@@ -151,28 +147,19 @@ namespace Socom2StreamData
             }
         }
 
-        public void resetPlayers()
+        public void SetIgnoredControls(List<Label> playerNames, List<HealthBar> playerHealthbars,List<PictureBox> playerWeapon)
         {
-
-            foreach (var label in pnl_Team_Players.Controls.OfType<Label>())
+            foreach (var item in playerNames)
             {
-                label.Text = "";
-                label.ForeColor = Color.FromArgb(175, 175, 175);
-                label.BackColor = Color.Transparent;
-                label.Tag = "";
+                item.Visible = false;
             }
-
-            foreach (var healthBar in pnl_Team_Players.Controls.OfType<Controls.HealthBar>())
+            foreach (var item in playerHealthbars)
             {
-                healthBar.healthSet = false;
-                healthBar.playerHealth = 0;
-                healthBar.Visible = false;
+                item.Visible = false;
             }
-
-            foreach (var pictureBox in pnl_Team_Players.Controls.OfType<PictureBox>())
+            foreach (var item in playerWeapon)
             {
-                pictureBox.Visible = false;
-                pictureBox.Tag = "";
+                item.Visible = false;
             }
         }
 
