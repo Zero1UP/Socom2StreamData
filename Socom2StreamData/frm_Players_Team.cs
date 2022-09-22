@@ -83,8 +83,14 @@ namespace Socom2StreamData
                         {
                             playerWeaponsList[index].Image = Properties.Resources.MPBomb;
                         }
-                        else
+
+                        //If the the teams match then we want to show only thier health bars
+                       
+                        if (_playerTeam == _Team || _playerTeam == "SPECTATOR")
                         {
+                            playerHealthBarsList[index].healthBarColor = Color.FromArgb(25, 140, 25);
+                            playerHealthBarsList[index].playerHealth = decimal.ToInt32(item.PlayerHealth);
+                            playerHealthBarsList[index].healthSet = true;
                             string currentWeapon = "";
 
                             try
@@ -118,15 +124,6 @@ namespace Socom2StreamData
 
                                 Console.Write(currentWeapon);
                             }
-                        }
-
-                        //If the the teams match then we want to show only thier health bars
-                       
-                        if (_playerTeam == _Team || _playerTeam == "SPECTATOR")
-                        {
-                            playerHealthBarsList[index].healthBarColor = Color.FromArgb(25, 140, 25);
-                            playerHealthBarsList[index].playerHealth = decimal.ToInt32(item.PlayerHealth);
-                            playerHealthBarsList[index].healthSet = true;
                         }
                         else
                         {
