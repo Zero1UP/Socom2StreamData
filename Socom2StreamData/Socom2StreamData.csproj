@@ -7,6 +7,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>socom2_stats_0YS_icon.ico</ApplicationIcon>
+    <AssemblyVersion>1.6.0</AssemblyVersion>
+    <FileVersion>1.6.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
