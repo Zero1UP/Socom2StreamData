@@ -1,5 +1,10 @@
 # Socom2StreamData
 Gathers information from the game so you can make a stream overlay for OBS
+This should work with all versions of PCSX2.
+
+#Prerequisites
+This was built with .net 8 and you will need to have it installed which can be downloaded from here:
+https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 
 # How to use with OBS
 Add a new source by clicking the + sign under sources.
