@@ -28,40 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pnl_HealthBar = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            pnl_HealthBar = new Panel();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.panel1.Controls.Add(this.pnl_HealthBar);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(100, 5);
-            this.panel1.TabIndex = 0;
+            panel1.BackColor = Color.FromArgb(75, 75, 75);
+            panel1.Controls.Add(pnl_HealthBar);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(117, 6);
+            panel1.TabIndex = 0;
             // 
             // pnl_HealthBar
             // 
-            this.pnl_HealthBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(140)))), ((int)(((byte)(25)))));
-            this.pnl_HealthBar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnl_HealthBar.Location = new System.Drawing.Point(0, 0);
-            this.pnl_HealthBar.Name = "pnl_HealthBar";
-            this.pnl_HealthBar.Size = new System.Drawing.Size(100, 5);
-            this.pnl_HealthBar.TabIndex = 0;
+            pnl_HealthBar.BackColor = Color.FromArgb(25, 140, 25);
+            pnl_HealthBar.Dock = DockStyle.Left;
+            pnl_HealthBar.Location = new Point(0, 0);
+            pnl_HealthBar.Margin = new Padding(4, 3, 4, 3);
+            pnl_HealthBar.Name = "pnl_HealthBar";
+            pnl_HealthBar.Size = new Size(117, 6);
+            pnl_HealthBar.TabIndex = 0;
             // 
             // HealthBar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
-            this.Name = "HealthBar";
-            this.Size = new System.Drawing.Size(100, 5);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panel1);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "HealthBar";
+            Size = new Size(117, 6);
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

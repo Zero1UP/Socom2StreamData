@@ -41,7 +41,7 @@ namespace Socom2StreamData
                 lbl_T_Rounds.Text = value;
             }
         }
-    
+
         public Color panelBackgroundColor
         {
             set
@@ -78,8 +78,8 @@ namespace Socom2StreamData
             set
             {
                 resetPlayers();
-               
-                if(value != null)
+
+                if (value != null)
                 {
                     foreach (var item in value)
                     {
@@ -112,12 +112,12 @@ namespace Socom2StreamData
 
 
 
-       
+
         public frm_Stats_GUI()
         {
             InitializeComponent();
 
-            
+
             this.TransparencyKey = (BackColor); // make GUI form transparent, also removes the border
 
             // initialize labels to be transparent on picturebox
@@ -173,7 +173,7 @@ namespace Socom2StreamData
             }
         }
 
-        public void setLabel(Label label,string playerName,string livingStatus)
+        public void setLabel(Label label, string playerName, string livingStatus)
         {
             label.Text = playerName;
             if (livingStatus == "DEAD")

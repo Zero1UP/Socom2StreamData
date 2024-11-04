@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using System.Data;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using Binarysharp.MemoryManagement;
+using MemoryIO.Pcsx2;
 using Socom2StreamData.Controls;
 using Socom2StreamData.Models;
 
@@ -24,24 +19,28 @@ namespace Socom2StreamData
 
         private string _playerTeam;
         private string _Team;
-        private MemorySharp _m;
+        private Pcsx2MemoryIO _m;
+        private IntPtr _baseAddress;
         public frm_Players_Team(string team)
         {
             InitializeComponent();
 
             _Team = team;
-            if(_Team =="SEALS")
+            if (_Team == "SEALS")
             {
                 pnl_Team.BackColor = Color.FromArgb(38, 57, 59);
                 lbl_Team.Text = "Seals";
                 this.Text = team;
 
-            }else if(_Team=="TERRORISTS")
+            }
+            else if (_Team == "TERRORISTS")
             {
                 pnl_Team.BackColor = Color.FromArgb(70, 42, 42);
                 lbl_Team.Text = "Terrorists";
                 this.Text = team;
             }
+
+           
         }
 
         public string PlayerTeam
@@ -49,11 +48,10 @@ namespace Socom2StreamData
             set { _playerTeam = value; }
         }
 
-        public MemorySharp MemObject
+        public Pcsx2MemoryIO MemObject
         {
             set { _m = value; }
         }
-
         public List<PlayerDataModel> playerData
         {
             set
@@ -81,10 +79,10 @@ namespace Socom2StreamData
                         playerWeaponsList[index].Tag = item.PlayerName;
                         if (item.HasMPBomb == 1)
                         {
-                            playerWeaponsList[index].Image = Properties.Resources.MPBomb;
+                            playerWeaponsList[index].Image = Collections.GetBitmap(Properties.Resources.MPBomb);
                         }
 
-                        //If the the teams match then we want to show only thier health bars
+                        //If the the teams match then we want to show only their health bars
                        
                         if (_playerTeam == _Team || _playerTeam == "SPECTATOR")
                         {
@@ -139,6 +137,10 @@ namespace Socom2StreamData
                         index++;
 
                     }
+                }
+                else
+                {
+
                 }
 
             }
@@ -236,12 +238,12 @@ namespace Socom2StreamData
             if(_playerTeam == "SPECTATOR" && _playerTeam != null)
             {
                 Label playerNameLabel = sender as Label;
-                //Get the player's pointer address
-                IntPtr playerPointerAddress = (IntPtr)playerNameLabel.Tag - 0x20000000;
-                IntPtr cameraPointerAddress = (IntPtr)_m.Read<int>(GameHelper.CAMERA_POINTER_ADDRESS,false) + 0x20000000;
-
-                _m.Write(cameraPointerAddress + 0xBC, playerPointerAddress, false);
-                _m.Write(cameraPointerAddress + 0xC0, playerPointerAddress, false);
+                ////Get the player's pointer address
+                int playerPointerAddress = (int)playerNameLabel.Tag;
+                int cameraPointerAddress = _m.Read<int>(GameHelper.CAMERA_POINTER_ADDRESS);
+                
+                _m.Write(cameraPointerAddress + 0xBC, playerPointerAddress);
+                _m.Write(cameraPointerAddress + 0xC0, playerPointerAddress);
             }
 
         }

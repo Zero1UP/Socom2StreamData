@@ -1,4 +1,6 @@
-﻿namespace Socom2StreamData
+﻿using Socom2StreamData.Models;
+
+namespace Socom2StreamData
 {
     partial class frm_Stats_GUI
     {
@@ -174,7 +176,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Socom2StreamData.Properties.Resources.s2GUI_50p;
+            this.pictureBox1.Image = Collections.GetBitmap(global::Socom2StreamData.Properties.Resources.s2GUI_50p);
             this.pictureBox1.Location = new System.Drawing.Point(314, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(215, 62);

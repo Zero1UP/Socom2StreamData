@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Socom2StreamData.Controls
+﻿namespace Socom2StreamData.Controls
 {
     public partial class HealthBar : UserControl
     {
@@ -16,7 +6,6 @@ namespace Socom2StreamData.Controls
         private int _playerHealth = 100;
         private bool _healthSet = false;
         private Color _healthBarColor;
-
         public int playerHealth
         {
             get { return _playerHealth; }
@@ -31,7 +20,9 @@ namespace Socom2StreamData.Controls
         public bool healthSet
         {
             get { return _healthSet; }
-            set { _healthSet = value; }
+            set { _healthSet = value;
+
+            }
         }
 
         public Color healthBarColor

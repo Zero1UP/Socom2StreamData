@@ -1,57 +1,52 @@
-﻿using Binarysharp.MemoryManagement;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.Reflection;
 using System.Data;
+using MemoryIO.Pcsx2;
 namespace Socom2StreamData
 {
     public partial class frm_Main : Form
     {
         private const string PCSX2PROCESSNAME = "pcsx2";
-        bool pcsx2Running;
-        MemorySharp m = null;
-
+        //MemorySharp m = null;
+        Pcsx2MemoryIO m = null;
         static frm_Stats_GUI statsGUI;
         static frm_Players_Team frm_sealPlayers;
         static frm_Players_Team frm_terroristPlayers;
         string mapID = "";
-        List<PlayerDataModel> playerDataList= new List<PlayerDataModel>();
-        
+        List<PlayerDataModel> playerDataList = new List<PlayerDataModel>();
+
         public frm_Main()
         {
             InitializeComponent();
 
+            m = new Pcsx2MemoryIO();
         }
 
         private void tmr_Update_Tick(object sender, EventArgs e)
         {
-            
+
             List<PlayerDataModel> playerData = new List<PlayerDataModel>();
             try
             {
-                if (pcsx2Running)
+
+                if (m.Pcsx2Running)
                 {
-                    m = new MemorySharp(Process.GetProcessesByName(PCSX2PROCESSNAME).First());
-                    if ((m.Read<byte>(GameHelper.PLAYER_POINTER_ADDRESS, 4, false) != null) && (!m.Read<byte>(GameHelper.PLAYER_POINTER_ADDRESS, 4, false).SequenceEqual(new byte[] { 0, 0, 0, 0 })))
+                    //IntPtr playerPtr = IntPtr.Add(baseAddress, GameHelper.PLAYER_POINTER_ADDRESS);
+                    if ((m.ReadArray<byte>(GameHelper.PLAYER_POINTER_ADDRESS, 4) != null) && (!m.ReadArray<byte>(GameHelper.PLAYER_POINTER_ADDRESS, 4).SequenceEqual(new byte[] { 0, 0, 0, 0 })))
                     {
-                        if (m.Read<byte>(GameHelper.GAME_ENDED_ADDRESS, false) == 0)
+                        if (m.Read<byte>(GameHelper.GAME_ENDED_ADDRESS) == 0)
                         {
                             // This is the data part of the PLAYER_POINTER_ADDRESS 
-                            IntPtr playerDataLocationAddress = (IntPtr)(m.Read<int>(GameHelper.PLAYER_POINTER_ADDRESS, false) + 0x20000000);
-                            IntPtr playerTeamAddress = IntPtr.Add(playerDataLocationAddress, GameHelper.PLAYER_TEAMID_OFFSET);
-                            string playerTeam = GameHelper.GetTeamName(m.Read<byte>(playerTeamAddress, 4, false).byteArrayHexToHexString(false));
+                            int playerDataLocationAddress = m.Read<int>(GameHelper.PLAYER_POINTER_ADDRESS);
+                            int playerTeamAddress = playerDataLocationAddress + GameHelper.PLAYER_TEAMID_OFFSET;
+                            string playerTeam = GameHelper.GetTeamName(m.ReadArray<byte>(playerTeamAddress, 4).byteArrayHexToHexString(false));
 
                             //Deal with the game stats
-                            int sealsRoundsWon = m.Read<byte>(GameHelper.SEAL_WIN_COUNTER_ADDRESS, false);
-                            int terroristRoundsWon = m.Read<byte>(GameHelper.TERRORIST_WIN_COUNTER_ADDRESS, false);
-                            int sealsAlive = m.Read<byte>(GameHelper.CURRENT_SEALS_ALIVE_COUNT_ADDRESS, false);
-                            int terroristsAlive = m.Read<byte>(GameHelper.CURRENT_TERRORISTS_ALIVE_COUNT_ADDRESS, false);
-                            string roundTime = m.Read<byte>(GameHelper.CURRENT_ROUND_TIMER_ADDRESS, 5, false).GetNullTerminatedString();
-                            mapID = m.Read<byte>(GameHelper.CURRENT_MAP_ADDRESS, 4, false).GetNullTerminatedString();
+                            int sealsRoundsWon = m.Read<byte>(GameHelper.SEAL_WIN_COUNTER_ADDRESS);
+                            int terroristRoundsWon = m.Read<byte>(GameHelper.TERRORIST_WIN_COUNTER_ADDRESS);
+                            int sealsAlive = m.Read<byte>(GameHelper.CURRENT_SEALS_ALIVE_COUNT_ADDRESS);
+                            int terroristsAlive = m.Read<byte>(GameHelper.CURRENT_TERRORISTS_ALIVE_COUNT_ADDRESS);
+                            string roundTime = m.ReadArray<byte>(GameHelper.CURRENT_ROUND_TIMER_ADDRESS, 5).GetNullTerminatedString();
+                            mapID = m.ReadArray<byte>(GameHelper.CURRENT_MAP_ADDRESS, 4).GetNullTerminatedString();
 
                             //Gather all the player Data
                             playerData = processPlayers();
@@ -82,7 +77,7 @@ namespace Socom2StreamData
                     if (mapID != "" && mapID != null)
                     {
 
-                        m.Write(GameHelper.GAME_ENDED_ADDRESS, new byte[] { 0 }, false);
+                        m.Write<byte>(GameHelper.GAME_ENDED_ADDRESS,0x00);
                         statsGUI.sealWins = 0.ToString();
                         statsGUI.terroristWins = 0.ToString();
                         statsGUI.sealsAlive = 0.ToString();
@@ -100,53 +95,53 @@ namespace Socom2StreamData
                 // something bad happened and we should just close out
                 Application.Exit();
             }
- 
+
         }
         private List<PlayerDataModel> processPlayers()
         {
             List<PlayerDataModel> playerData = new List<PlayerDataModel>();
 
-            IntPtr entityObjectPointer =(IntPtr)(m.Read<int>(GameHelper.ENTITY_OBJECT_LIST_POINTER, false) + 0x20000000);
+            int entityObjectPointer = m.Read<int>(GameHelper.ENTITY_OBJECT_LIST_POINTER);
             do
             {
-                IntPtr playerPointerAddress = (IntPtr)m.Read<int>(IntPtr.Add(entityObjectPointer, GameHelper.ENTITY_INDEX_PLAYER_POINTER_OFFSET), false) + 0x20000000;
-                IntPtr playerNamePointerAddress = (IntPtr)m.Read<int>(IntPtr.Add(playerPointerAddress, GameHelper.PLAYER_NAME_OFFSET), false) + 0x20000000;
-                string teamID = GameHelper.GetTeamName(m.Read<int>(IntPtr.Add(playerPointerAddress, GameHelper.PLAYER_TEAMID_OFFSET), false).ToString("X8"));
+                int playerPointerAddress = m.Read<int>(entityObjectPointer + GameHelper.ENTITY_INDEX_PLAYER_POINTER_OFFSET);
+                int playerNamePointerAddress = m.Read<int>(playerPointerAddress + GameHelper.PLAYER_NAME_OFFSET);
+                string teamID = GameHelper.GetTeamName(m.Read<int>(playerPointerAddress + GameHelper.PLAYER_TEAMID_OFFSET).ToString("X8"));
                 PlayerDataModel PD = new PlayerDataModel();
                 if (teamID == "SEALS" || teamID == "TERRORISTS")
                 {
                     try
                     {
-                      
-                        PD.PlayerName = m.Read<byte>(playerNamePointerAddress, 20, false).GetNullTerminatedString();
+
+                        PD.PlayerName = m.ReadArray<byte>(playerNamePointerAddress, 20).GetNullTerminatedString();
                         PD.PointerAddress = playerPointerAddress;
                         PD.Team = teamID;
-                        PD.PlayerHealth = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_HEALTH_OFFSET, 4, false).byteHexFloatToDecimal();
-                        PD.HasMPBomb = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_HASMPBOMB_OFFSET, false);
-                        int livingStatus = m.Read<byte>(playerPointerAddress + GameHelper.PLAYER_ALIVE_OFFSET, false);
+                        PD.PlayerHealth = m.ReadArray<byte>(playerPointerAddress + GameHelper.PLAYER_HEALTH_OFFSET, 4).byteHexFloatToDecimal();
+                        PD.HasMPBomb = m.Read<byte>((playerPointerAddress + GameHelper.PLAYER_HASMPBOMB_OFFSET));
+                        int livingStatus = m.Read<byte>((playerPointerAddress + GameHelper.PLAYER_ALIVE_OFFSET));
 
-                        IntPtr playerPrimaryWeaponPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYTER_PRIMARY_WEAPON_POINTER_OFFSET, false) + 0x20000004;
-                        IntPtr primaryWeaponNamePointer = (IntPtr)m.Read<int>(playerPrimaryWeaponPointer, false) + 0x20000000;
-                        IntPtr secondaryWeaponPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_SECONDARY_WEAPON_POINTER_OFFSET, false) + 0x20000004;
-                        IntPtr secondaryWeaponNamePointer = (IntPtr)m.Read<int>(secondaryWeaponPointer, false) + 0x20000000;
-                        IntPtr eqSlot1Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP1_POINTER_OFFSET, false) + 0x20000004;
-                        IntPtr eqSlot1NamePointer = (IntPtr)m.Read<int>(eqSlot1Pointer, false) + 0x20000000;
-                        IntPtr eqSlot2Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP2_POINTER_OFFSET, false) + 0x20000004;
-                        IntPtr eqSlot2NamePointer = (IntPtr)m.Read<int>(eqSlot2Pointer, false) + 0x20000000;
-                        IntPtr eqSlot3Pointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EQUIP3_POINTER_OFFSET, false) + 0x20000004;
-                        IntPtr eqSlot3NamePointer = (IntPtr)m.Read<int>(eqSlot3Pointer, false) + 0x20000000;
-                        IntPtr eqExtraPointer = (IntPtr)m.Read<int>(playerPointerAddress + GameHelper.PLAYER_EXTRA_POINTER_OFFSET, false) + 0x20000004;
-                        PD.PrimaryWeapon = m.Read<byte>(primaryWeaponNamePointer, 12, false).GetNullTerminatedString();
-                        PD.SecondaryWeapon = m.Read<byte>(secondaryWeaponNamePointer, 12, false).GetNullTerminatedString();
-                        PD.EquipmentSlot1 = m.Read<byte>(eqSlot1NamePointer, 12, false).GetNullTerminatedString();
-                        PD.EquipmentSlot2 = m.Read<byte>(eqSlot2NamePointer, 12, false).GetNullTerminatedString();
-                        PD.EquipmentSlot3 = m.Read<byte>(eqSlot3NamePointer, 12, false).GetNullTerminatedString();
-                        PD.WeaponIndex = m.Read<int>(playerPointerAddress + GameHelper.PLAYER_CURRENT_WEAPON_INDEX, false);
-                        if (eqExtraPointer != (IntPtr)0x20000004)
-                        {
-                            IntPtr eqExtraNamePointer = (IntPtr)m.Read<int>(eqExtraPointer, false) + 0x20000000;
-                            PD.ExtraEquipmentSlot = m.Read<byte>(eqExtraNamePointer, 12, false).GetNullTerminatedString();
-                        }
+                        int playerPrimaryWeaponPointer =m.Read<int>(playerPointerAddress + GameHelper.PLAYTER_PRIMARY_WEAPON_POINTER_OFFSET) + 4;
+                        int primaryWeaponNamePointer = m.Read<int>(playerPrimaryWeaponPointer);
+                        int secondaryWeaponPointer = m.Read<int>((playerPointerAddress + GameHelper.PLAYER_SECONDARY_WEAPON_POINTER_OFFSET)) + 4;
+                        int secondaryWeaponNamePointer = m.Read<int>(secondaryWeaponPointer);
+                        int eqSlot1Pointer = m.Read<int>((playerPointerAddress + GameHelper.PLAYER_EQUIP1_POINTER_OFFSET)) + 4;
+                        int eqSlot1NamePointer = m.Read<int>(eqSlot1Pointer);
+                        int eqSlot2Pointer = m.Read<int>((playerPointerAddress + GameHelper.PLAYER_EQUIP2_POINTER_OFFSET)) + 4;
+                        int eqSlot2NamePointer = m.Read<int>(eqSlot2Pointer);
+                        int eqSlot3Pointer = m.Read<int>((playerPointerAddress + GameHelper.PLAYER_EQUIP3_POINTER_OFFSET)) + 4;
+                        int eqSlot3NamePointer = m.Read<int>(eqSlot3Pointer);
+                        int eqExtraPointer = m.Read<int>((playerPointerAddress + GameHelper.PLAYER_EXTRA_POINTER_OFFSET)) + 4;
+                        PD.PrimaryWeapon = m.ReadArray<byte>(primaryWeaponNamePointer, 12).GetNullTerminatedString();
+                        PD.SecondaryWeapon = m.ReadArray<byte>(secondaryWeaponNamePointer, 12).GetNullTerminatedString();
+                        PD.EquipmentSlot1 = m.ReadArray<byte>(eqSlot1NamePointer, 12).GetNullTerminatedString();
+                        PD.EquipmentSlot2 = m.ReadArray<byte>(eqSlot2NamePointer, 12).GetNullTerminatedString();
+                        PD.EquipmentSlot3 = m.ReadArray<byte>(eqSlot3NamePointer, 12).GetNullTerminatedString();
+                        PD.WeaponIndex = m.Read<int>((playerPointerAddress + GameHelper.PLAYER_CURRENT_WEAPON_INDEX));
+                        //if (eqExtraPointer != (IntPtr)0x20000004)
+                        //{
+                        //    IntPtr eqExtraNamePointer = (IntPtr)m.Read<int>(eqExtraPointer, false) + 0x20000000;
+                        //    PD.ExtraEquipmentSlot = m.Read<byte>(eqExtraNamePointer, 12, false).GetNullTerminatedString();
+                        //}
                         if (livingStatus == 1)
                         {
                             PD.LivingStatus = "ALIVE";
@@ -155,7 +150,7 @@ namespace Socom2StreamData
                         {
                             PD.LivingStatus = "DEAD";
                         }
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -168,53 +163,40 @@ namespace Socom2StreamData
                     }
 
                 }
-                entityObjectPointer = (IntPtr)m.Read<int>(entityObjectPointer, false) + 0x20000000; // Get the next pointer in the list
-            } while (entityObjectPointer != (IntPtr)0x20442CEC);
+                entityObjectPointer = m.Read<int>(entityObjectPointer); // Get the next pointer in the list
+            } while (entityObjectPointer != 0x442CEC);
             return playerData;
         }
         private void tmr_CheckPCSX2_Tick(object sender, EventArgs e)
         {
-            Process[] pcsx2 = Process.GetProcessesByName(PCSX2PROCESSNAME);
-            if (pcsx2.Length > 0)
+            if(m.Pcsx2Running && !m.IsAttached)
+            {
+                m.Update();
+            }
+
+            if (m.IsAttached)
             {
                 lbl_PCSX2.Text = "PCSX2 Detected";
                 pnl_Options.Enabled = true;
                 lbl_PCSX2.ForeColor = Color.FromArgb(20, 192, 90);
-                pcsx2Running = true;
                 return;
             }
+
             lbl_PCSX2.Text = "Waiting for PCSX2...";
             pnl_Options.Enabled = false;
             lbl_PCSX2.ForeColor = Color.FromArgb(120, 120, 120);
-            pcsx2Running = false;
         }
-
-        private void chk_FPS_CheckedChanged(object sender, EventArgs e)
-        {
-            if (pcsx2Running)
-            {
-                if (chk_HUD.Checked)
-                {
-                    m.Write(GameHelper.CURRENT_FPS_ADDRESS, new byte[] { 0x3C },false);
-                    m.Write(GameHelper.LOBBYSET_FPS_ADDRESS, new byte[] { 0x3C },false);
-                    return;
-                }
-                m.Write(GameHelper.CURRENT_FPS_ADDRESS, new byte[] { 0x1E }, false);
-                m.Write(GameHelper.LOBBYSET_FPS_ADDRESS, new byte[] { 0x1E }, false);
-            }
-
-        }
-
         private void chk_HUD_CheckedChanged(object sender, EventArgs e)
         {
-            if (pcsx2Running)
+            if (m.Pcsx2Running)
             {
+               
                 if (chk_HUD.Checked)
-                {
-                    m.Write<byte>(GameHelper.HUD_BOOL_ADDRESS, new byte[] { 0x01 },false);
+                {            
+                    m.Write<byte>(GameHelper.HUD_BOOL_ADDRESS, 0x01);
                     return;
                 }
-                m.Write<byte>(GameHelper.HUD_BOOL_ADDRESS, new byte[] { 0x00 },false);
+                m.Write<byte>(GameHelper.HUD_BOOL_ADDRESS,0x00);
             }
         }
 
@@ -226,7 +208,7 @@ namespace Socom2StreamData
 
             statsGUI.StartPosition = FormStartPosition.Manual;
             //Set the starting location of the Stats form
-            statsGUI.Location = new Point(this.Location.X, this.Location.Y - 100);
+            statsGUI.Location = new System.Drawing.Point(this.Location.X, this.Location.Y - 100);
             statsGUI.Show();
 
             // load players GUI
@@ -239,7 +221,7 @@ namespace Socom2StreamData
 
         private void chk_ShowSealHealthBars_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_ShowSealHealthBars.Checked)
+            if (chk_ShowSealHealthBars.Checked)
             {
                 frm_sealPlayers.Visible = true;
                 return;
@@ -258,7 +240,7 @@ namespace Socom2StreamData
         }
 
         private void chk_ScoreBoardAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
-        {    
+        {
             toggleTopWindow(statsGUI, chk_ScoreBoardAlwaysOnTop.Checked);
 
         }
@@ -270,9 +252,9 @@ namespace Socom2StreamData
         {
             toggleTopWindow(frm_terroristPlayers, chk_TerroristPlayersAlwaysTopWindow.Checked);
         }
-        private void toggleTopWindow(Form formToToggle,bool isTopWindow)
+        private void toggleTopWindow(Form formToToggle, bool isTopWindow)
         {
-            
+
             if (isTopWindow)
             {
                 formToToggle.TopMost = true;
@@ -280,7 +262,5 @@ namespace Socom2StreamData
             }
             formToToggle.TopMost = false;
         }
-
-
     }
 }
